@@ -1,0 +1,42 @@
+{
+  "fieldNodes": [
+    {
+      "kind": "Field",
+      "name": {
+        "value": "Fragment"
+      },
+      "selectionSet": {
+        "kind": "SelectionSet",
+        "selections": [
+          {
+            "kind": "Field",
+            "name": {
+              "value": "__typename"
+            }
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": {
+              "value": "FragSpreadName"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fragments": {
+    "FragSpreadName": {
+      "selectionSet": {
+        "kind": "SelectionSet",
+        "selections": [
+          {
+            "kind": "Field",
+            "name": {
+              "value": "FragSpreadField"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

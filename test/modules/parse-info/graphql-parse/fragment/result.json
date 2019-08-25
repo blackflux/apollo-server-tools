@@ -1,0 +1,18 @@
+{
+  "args": {
+    "people": {
+      "id": "7",
+      "avatar.size": "LARGE"
+    }
+  },
+  "fields": {
+    "people": [
+      "firstName",
+      "lastName",
+      "avatar"
+    ]
+  },
+  "ops": [
+    "people"
+  ]
+}

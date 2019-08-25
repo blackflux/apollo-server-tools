@@ -1,0 +1,5 @@
+mutation CreateTweet {
+  createTweet( data: "blob" ) {
+    id
+  }
+}

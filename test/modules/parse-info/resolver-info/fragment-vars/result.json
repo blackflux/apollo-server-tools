@@ -1,0 +1,39 @@
+{
+  "args": {
+    "newsId": "8fcacbf8-8ce1-4765-aca5-1d95e431b283"
+  },
+  "fields": [
+    "id",
+    "title",
+    "subtitle",
+    "about",
+    "info",
+    "flag1",
+    "flag2",
+    "pin",
+    "outlet.id",
+    "outlet.name",
+    "outlet.short",
+    "outlet.slogan",
+    "outlet.details",
+    "outlet.homepage",
+    "outlet.phone",
+    "outlet.images.homepage",
+    "agents.id",
+    "agents.name",
+    "agents.address.id",
+    "agents.address.suite",
+    "agents.address.building",
+    "agents.address.streetAddress",
+    "agents.address.street",
+    "agents.address.postalcode",
+    "agents.address.city",
+    "agents.address.state",
+    "agents.address.country",
+    "agents.address.centre",
+    "mainImages.homepage"
+  ],
+  "ops": [
+    "news"
+  ]
+}

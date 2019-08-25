@@ -10,3 +10,44 @@
 [![Gardener](https://github.com/blackflux/js-gardener/blob/master/assets/badge.svg)](https://github.com/blackflux/js-gardener)
 
 Helper for apollo-server
+
+## Install
+
+Install with [npm](https://www.npmjs.com/):
+
+    $ npm install --save apollo-server-tools
+
+## Example
+
+// TODO: ...
+
+## Functions
+
+### parseInfo(info, vars = {})
+
+Parse info object to easily access relevant information.
+
+### getDeprecationDate(schema, queryAst, offsetInDays = 0)
+
+Fetch nearest deprecation date that is accessed by the query as `http-date` string.
+Returns `null` when there is no deprecated access. Expects custom deprecation syntax, see below.
+
+Can e.g. be used to return a `Sunset` header.
+
+### getDeprecationDetails(schema, queryAst)
+
+Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
+
+## syncDocs(filepath, schema, stripDeprecated = true)
+
+Write introspection result into file. Order is stable. Returns true iff the content has changed. Deprecated entities are removed if option is set. Expects custom deprecation syntax, see below.
+
+## generateDocs(schema, stripDeprecated = true)
+
+Generate and return introspection result. Deprecated entities are removed if option is set. Expects custom deprecation syntax, see below.
+
+## Deprecation Syntax
+
+Deprecation functionality is very limited in graphql. This tool allows overloading of comments, which means that everything in the schema can be deprecated.
+
+The deprecation comment is expected to be in the form `[deprecated] YYYY-MM-DD description`, where the date indicates the date of deprecation.

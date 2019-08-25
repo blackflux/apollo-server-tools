@@ -1,0 +1,1098 @@
+{
+  "fieldName": "news",
+  "fieldNodes": [
+    {
+      "kind": "Field",
+      "name": {
+        "kind": "Name",
+        "value": "news",
+        "loc": {
+          "start": 32,
+          "end": 37
+        }
+      },
+      "arguments": [
+        {
+          "kind": "Argument",
+          "name": {
+            "kind": "Name",
+            "value": "newsId",
+            "loc": {
+              "start": 38,
+              "end": 45
+            }
+          },
+          "value": {
+            "kind": "Variable",
+            "name": {
+              "kind": "Name",
+              "value": "id",
+              "loc": {
+                "start": 48,
+                "end": 50
+              }
+            },
+            "loc": {
+              "start": 47,
+              "end": 50
+            }
+          },
+          "loc": {
+            "start": 38,
+            "end": 50
+          }
+        }
+      ],
+      "directives": [],
+      "selectionSet": {
+        "kind": "SelectionSet",
+        "selections": [
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "__typename",
+              "loc": {
+                "start": 57,
+                "end": 67
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 57,
+              "end": 67
+            }
+          },
+          {
+            "kind": "FragmentSpread",
+            "name": {
+              "kind": "Name",
+              "value": "NewsDetail",
+              "loc": {
+                "start": 74,
+                "end": 85
+              }
+            },
+            "directives": [],
+            "loc": {
+              "start": 71,
+              "end": 85
+            }
+          }
+        ],
+        "loc": {
+          "start": 52,
+          "end": 88
+        }
+      },
+      "loc": {
+        "start": 32,
+        "end": 88
+      }
+    }
+  ],
+  "returnType": "News",
+  "parentType": "Query",
+  "path": {
+    "key": "news"
+  },
+  "schema": {
+    "_queryType": "Query",
+    "_mutationType": "Mutation",
+    "_subscriptionType": null,
+    "_directives": [
+      "@cacheControl",
+      "@skip",
+      "@include",
+      "@deprecated"
+    ],
+    "_typeMap": {
+      "Query": "Query",
+      "ID": "ID",
+      "Outlet": "Outlet",
+      "String": "String",
+      "OutletNews": "OutletNews",
+      "Boolean": "Boolean",
+      "Image": "Image",
+      "OutletCategory": "OutletCategory",
+      "OutletAgent": "OutletAgent",
+      "OutletAgentAddress": "OutletAgentAddress",
+      "Float": "Float",
+      "Int": "Int",
+      "CollectionExtended": "CollectionExtended",
+      "Collection": "Collection",
+      "Agent": "Agent",
+      "AgentAddress": "AgentAddress",
+      "AgentOutlet": "AgentOutlet",
+      "AgentOutletCategory": "AgentOutletCategory",
+      "NewsState": "NewsState",
+      "NewsStateTransition": "NewsStateTransition",
+      "NewsStateTransitionMeta": "NewsStateTransitionMeta",
+      "NewsStateTransitionArg": "NewsStateTransitionArg",
+      "NewsStateMeta": "NewsStateMeta",
+      "NewsStatus": "NewsStatus",
+      "NewsStatusLimits": "NewsStatusLimits",
+      "NewsStatusLimitsDetails": "NewsStatusLimitsDetails",
+      "NewsStatusLimitsUsage": "NewsStatusLimitsUsage",
+      "NewsStatusSchedules": "NewsStatusSchedules",
+      "NewsStatusScheduleDetails": "NewsStatusScheduleDetails",
+      "NewsStatusMeta": "NewsStatusMeta",
+      "News": "News",
+      "NewsOutlet": "NewsOutlet",
+      "NewsAgent": "NewsAgent",
+      "NewsAgentAddress": "NewsAgentAddress",
+      "Mutation": "Mutation",
+      "__Schema": "__Schema",
+      "__Type": "__Type",
+      "__TypeKind": "__TypeKind",
+      "__Field": "__Field",
+      "__InputValue": "__InputValue",
+      "__EnumValue": "__EnumValue",
+      "__Directive": "__Directive",
+      "__DirectiveAgent": "__DirectiveAgent",
+      "CacheControlScope": "CacheControlScope"
+    },
+    "_implementations": {},
+    "__validationErrors": [],
+    "__allowedLegacyNames": [],
+    "_extensionsEnabled": true
+  },
+  "fragments": {
+    "NewsDetail": {
+      "kind": "FragmentDefinition",
+      "name": {
+        "kind": "Name",
+        "value": "NewsDetail",
+        "loc": {
+          "start": 98,
+          "end": 109
+        }
+      },
+      "typeCondition": {
+        "kind": "NamedType",
+        "name": {
+          "kind": "Name",
+          "value": "News",
+          "loc": {
+            "start": 113,
+            "end": 118
+          }
+        },
+        "loc": {
+          "start": 113,
+          "end": 118
+        }
+      },
+      "directives": [],
+      "selectionSet": {
+        "kind": "SelectionSet",
+        "selections": [
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "__typename",
+              "loc": {
+                "start": 122,
+                "end": 132
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 122,
+              "end": 132
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "id",
+              "loc": {
+                "start": 134,
+                "end": 136
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 134,
+              "end": 136
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "title",
+              "loc": {
+                "start": 138,
+                "end": 146
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 138,
+              "end": 146
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "subtitle",
+              "loc": {
+                "start": 148,
+                "end": 155
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 148,
+              "end": 155
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "about",
+              "loc": {
+                "start": 157,
+                "end": 164
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 157,
+              "end": 164
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "info",
+              "loc": {
+                "start": 166,
+                "end": 171
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 166,
+              "end": 171
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "flag1",
+              "loc": {
+                "start": 173,
+                "end": 181
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 173,
+              "end": 181
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "flag2",
+              "loc": {
+                "start": 183,
+                "end": 192
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 183,
+              "end": 192
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "pin",
+              "loc": {
+                "start": 194,
+                "end": 203
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "loc": {
+              "start": 194,
+              "end": 203
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "outlet",
+              "loc": {
+                "start": 205,
+                "end": 213
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "selectionSet": {
+              "kind": "SelectionSet",
+              "selections": [
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "__typename",
+                    "loc": {
+                      "start": 219,
+                      "end": 229
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 219,
+                    "end": 229
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "id",
+                    "loc": {
+                      "start": 233,
+                      "end": 235
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 233,
+                    "end": 235
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "name",
+                    "loc": {
+                      "start": 239,
+                      "end": 243
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 239,
+                    "end": 243
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "short",
+                    "loc": {
+                      "start": 247,
+                      "end": 256
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 247,
+                    "end": 256
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "slogan",
+                    "loc": {
+                      "start": 260,
+                      "end": 266
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 260,
+                    "end": 266
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "details",
+                    "loc": {
+                      "start": 270,
+                      "end": 274
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 270,
+                    "end": 274
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "homepage",
+                    "loc": {
+                      "start": 278,
+                      "end": 281
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 278,
+                    "end": 281
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "phone",
+                    "loc": {
+                      "start": 285,
+                      "end": 290
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 285,
+                    "end": 290
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "images",
+                    "loc": {
+                      "start": 294,
+                      "end": 307
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "selectionSet": {
+                    "kind": "SelectionSet",
+                    "selections": [
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "__typename",
+                          "loc": {
+                            "start": 315,
+                            "end": 325
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 315,
+                          "end": 325
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "homepage",
+                          "loc": {
+                            "start": 331,
+                            "end": 334
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 331,
+                          "end": 334
+                        }
+                      }
+                    ],
+                    "loc": {
+                      "start": 308,
+                      "end": 339
+                    }
+                  },
+                  "loc": {
+                    "start": 294,
+                    "end": 339
+                  }
+                }
+              ],
+              "loc": {
+                "start": 214,
+                "end": 342
+              }
+            },
+            "loc": {
+              "start": 205,
+              "end": 342
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "agents",
+              "loc": {
+                "start": 344,
+                "end": 353
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "selectionSet": {
+              "kind": "SelectionSet",
+              "selections": [
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "__typename",
+                    "loc": {
+                      "start": 359,
+                      "end": 369
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 359,
+                    "end": 369
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "id",
+                    "loc": {
+                      "start": 373,
+                      "end": 375
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 373,
+                    "end": 375
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "name",
+                    "loc": {
+                      "start": 379,
+                      "end": 383
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 379,
+                    "end": 383
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "address",
+                    "loc": {
+                      "start": 387,
+                      "end": 394
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "selectionSet": {
+                    "kind": "SelectionSet",
+                    "selections": [
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "__typename",
+                          "loc": {
+                            "start": 402,
+                            "end": 412
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 402,
+                          "end": 412
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "id",
+                          "loc": {
+                            "start": 418,
+                            "end": 420
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 418,
+                          "end": 420
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "suite",
+                          "loc": {
+                            "start": 426,
+                            "end": 431
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 426,
+                          "end": 431
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "building",
+                          "loc": {
+                            "start": 437,
+                            "end": 445
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 437,
+                          "end": 445
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "streetAddress",
+                          "loc": {
+                            "start": 451,
+                            "end": 464
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 451,
+                          "end": 464
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "street",
+                          "loc": {
+                            "start": 470,
+                            "end": 476
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 470,
+                          "end": 476
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "postalcode",
+                          "loc": {
+                            "start": 482,
+                            "end": 492
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 482,
+                          "end": 492
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "city",
+                          "loc": {
+                            "start": 498,
+                            "end": 502
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 498,
+                          "end": 502
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "state",
+                          "loc": {
+                            "start": 508,
+                            "end": 513
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 508,
+                          "end": 513
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "country",
+                          "loc": {
+                            "start": 519,
+                            "end": 526
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 519,
+                          "end": 526
+                        }
+                      },
+                      {
+                        "kind": "Field",
+                        "name": {
+                          "kind": "Name",
+                          "value": "centre",
+                          "loc": {
+                            "start": 532,
+                            "end": 538
+                          }
+                        },
+                        "arguments": [],
+                        "directives": [],
+                        "loc": {
+                          "start": 532,
+                          "end": 538
+                        }
+                      }
+                    ],
+                    "loc": {
+                      "start": 395,
+                      "end": 543
+                    }
+                  },
+                  "loc": {
+                    "start": 387,
+                    "end": 543
+                  }
+                }
+              ],
+              "loc": {
+                "start": 354,
+                "end": 546
+              }
+            },
+            "loc": {
+              "start": 344,
+              "end": 546
+            }
+          },
+          {
+            "kind": "Field",
+            "name": {
+              "kind": "Name",
+              "value": "mainImages",
+              "loc": {
+                "start": 548,
+                "end": 558
+              }
+            },
+            "arguments": [],
+            "directives": [],
+            "selectionSet": {
+              "kind": "SelectionSet",
+              "selections": [
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "__typename",
+                    "loc": {
+                      "start": 564,
+                      "end": 574
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 564,
+                    "end": 574
+                  }
+                },
+                {
+                  "kind": "Field",
+                  "name": {
+                    "kind": "Name",
+                    "value": "homepage",
+                    "loc": {
+                      "start": 578,
+                      "end": 581
+                    }
+                  },
+                  "arguments": [],
+                  "directives": [],
+                  "loc": {
+                    "start": 578,
+                    "end": 581
+                  }
+                }
+              ],
+              "loc": {
+                "start": 559,
+                "end": 584
+              }
+            },
+            "loc": {
+              "start": 548,
+              "end": 584
+            }
+          }
+        ],
+        "loc": {
+          "start": 119,
+          "end": 585
+        }
+      },
+      "loc": {
+        "start": 89,
+        "end": 585
+      }
+    }
+  },
+  "operation": {
+    "kind": "OperationDefinition",
+    "operation": "query",
+    "name": {
+      "kind": "Name",
+      "value": "NewsDetails",
+      "loc": {
+        "start": 6,
+        "end": 18
+      }
+    },
+    "variableDefinitions": [
+      {
+        "kind": "VariableDefinition",
+        "variable": {
+          "kind": "Variable",
+          "name": {
+            "kind": "Name",
+            "value": "id",
+            "loc": {
+              "start": 20,
+              "end": 22
+            }
+          },
+          "loc": {
+            "start": 19,
+            "end": 22
+          }
+        },
+        "type": {
+          "kind": "NonNullType",
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "ID",
+              "loc": {
+                "start": 24,
+                "end": 26
+              }
+            },
+            "loc": {
+              "start": 24,
+              "end": 26
+            }
+          },
+          "loc": {
+            "start": 24,
+            "end": 27
+          }
+        },
+        "loc": {
+          "start": 19,
+          "end": 27
+        }
+      }
+    ],
+    "directives": [],
+    "selectionSet": {
+      "kind": "SelectionSet",
+      "selections": [
+        {
+          "kind": "Field",
+          "name": {
+            "kind": "Name",
+            "value": "news",
+            "loc": {
+              "start": 32,
+              "end": 37
+            }
+          },
+          "arguments": [
+            {
+              "kind": "Argument",
+              "name": {
+                "kind": "Name",
+                "value": "newsId",
+                "loc": {
+                  "start": 38,
+                  "end": 45
+                }
+              },
+              "value": {
+                "kind": "Variable",
+                "name": {
+                  "kind": "Name",
+                  "value": "id",
+                  "loc": {
+                    "start": 48,
+                    "end": 50
+                  }
+                },
+                "loc": {
+                  "start": 47,
+                  "end": 50
+                }
+              },
+              "loc": {
+                "start": 38,
+                "end": 50
+              }
+            }
+          ],
+          "directives": [],
+          "selectionSet": {
+            "kind": "SelectionSet",
+            "selections": [
+              {
+                "kind": "Field",
+                "name": {
+                  "kind": "Name",
+                  "value": "__typename",
+                  "loc": {
+                    "start": 57,
+                    "end": 67
+                  }
+                },
+                "arguments": [],
+                "directives": [],
+                "loc": {
+                  "start": 57,
+                  "end": 67
+                }
+              },
+              {
+                "kind": "FragmentSpread",
+                "name": {
+                  "kind": "Name",
+                  "value": "NewsDetail",
+                  "loc": {
+                    "start": 74,
+                    "end": 85
+                  }
+                },
+                "directives": [],
+                "loc": {
+                  "start": 71,
+                  "end": 85
+                }
+              }
+            ],
+            "loc": {
+              "start": 52,
+              "end": 88
+            }
+          },
+          "loc": {
+            "start": 32,
+            "end": 88
+          }
+        }
+      ],
+      "loc": {
+        "start": 29,
+        "end": 89
+      }
+    },
+    "loc": {
+      "start": 0,
+      "end": 89
+    }
+  },
+  "variableValues": {
+    "id": "8fcacbf8-8ce1-4765-aca5-1d95e431b283"
+  },
+  "cacheControl": {
+    "cacheHint": {
+      "maxAge": 0
+    }
+  }
+}

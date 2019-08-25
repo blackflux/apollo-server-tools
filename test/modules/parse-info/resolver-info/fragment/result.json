@@ -1,0 +1,9 @@
+{
+  "args": {},
+  "fields": [
+    "FragSpreadField"
+  ],
+  "ops": [
+    "Fragment"
+  ]
+}
