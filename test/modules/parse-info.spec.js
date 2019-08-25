@@ -4,12 +4,10 @@ const fs = require('smart-fs');
 const { parse } = require('graphql');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
+const { getDirectories } = require('../util');
 const parseInfo = require('../../src/modules/parse-info');
 
-const getDirectories = (dir) => fs.readdirSync(dir)
-  .filter((subDir) => fs.lstatSync(path.join(dir, subDir)).isDirectory());
-
-describe('Testing fields util.', () => {
+describe('Testing parse-info.js', () => {
   describe('Testing graphql-parse', () => {
     const root = path.join(__dirname, 'parse-info', 'graphql-parse');
     getDirectories(root).forEach((testDir) => {

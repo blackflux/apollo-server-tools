@@ -1,0 +1,6 @@
+[
+  {
+    "description": "[deprecated] 2009-03-22 Please use deleteTweet instead",
+    "name": "removeTweet"
+  }
+]

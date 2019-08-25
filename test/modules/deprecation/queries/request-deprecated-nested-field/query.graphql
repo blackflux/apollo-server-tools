@@ -1,0 +1,7 @@
+{
+  Tweet(id: "123"){
+    Stats{
+      replies
+    }
+  }
+}

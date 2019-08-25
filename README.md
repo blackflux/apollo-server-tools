@@ -25,5 +25,21 @@ Install with [npm](https://www.npmjs.com/):
 
 ### parseInfo(info, vars = {})
 
-Parse info object to make accessing the useful information easier.
+Parse info object to easily access relevant information.
 
+### getDeprecationDate(schema, queryAst, offsetInDays = 0)
+
+Fetch nearest deprecation date that is accessed by the query as `http-date` string.
+Returns `null` no deprecated access. Expected custom deprecation syntax, see below.
+
+Can e.g. be used to return a `Sunset` header.
+
+### getDeprecationDetails(schema, queryAst)
+
+Fetch deprecated entities that accessed by the query. Expected custom deprecation syntax, see below.
+
+## Deprecation Syntax
+
+Deprecation functionality is very limited in graphql. This tool allows a workaround syntax by overloading the comments. Anything in the graphql schema can now be deprecated.
+
+The comment is expected to be in the form of `[deprecated] YYYY-MM-DD description`, where the date indicates the date of deprecation.
