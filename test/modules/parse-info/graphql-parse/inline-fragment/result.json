@@ -1,0 +1,19 @@
+{
+  "args": {
+    "shows": {
+      "search": "Atheros"
+    }
+  },
+  "fields": {
+    "shows": [
+      "email",
+      "firstName",
+      "lastName",
+      "name",
+      "vatId"
+    ]
+  },
+  "ops": [
+    "shows"
+  ]
+}

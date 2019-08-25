@@ -1,0 +1,68 @@
+type Tweet {
+  id: ID!
+  body: String
+  date: Date
+  Author: User
+  Stats: Stat
+}
+
+type User {
+  id: ID!
+  username: String
+  first_name: String
+  last_name: String
+  full_name: String
+  # [deprecated] 2000-12-01 Please use full_name instead
+  name: String
+  avatar_url: Url
+}
+
+# [deprecated] 2001-04-26 Please use separate rest api instead
+type Stat {
+  views: Int
+  likes: Int
+  retweets: Int
+  responses: Int
+  # [deprecated] 2003-05-01 Please use responses instead
+  replies: Int
+}
+
+type Notification {
+  id: ID
+  date: Date
+  type: String
+}
+
+type Meta {
+  count: Int
+}
+
+scalar Url
+scalar Date
+
+type Query {
+  Tweet(id: ID!): Tweet
+  # [deprecated] 2004-06-27 Please use Tweet instead
+  GetTweet(id: ID!): Tweet
+  Tweets(limit: Int, skip: Int, sort_field: String, sort_order: String): [Tweet]
+  TweetsMeta: Meta
+  User(
+    id: ID!,
+    # [deprecated] 2005-01-01 Please use id instead
+    longId: ID
+  ): User
+  Notifications(limit: Int): [Notification]
+  NotificationsMeta: Meta
+}
+
+type Mutation {
+  createTweet (
+    body: String,
+    # [deprecated] 2006-12-28 Please use body instead
+    data: String
+  ): Tweet
+  deleteTweet(id: ID!): Tweet
+  # [deprecated] 2009-03-22 Please use deleteTweet instead
+  removeTweet(id: ID!): Tweet
+  markTweetRead(id: ID!): Boolean
+}

@@ -1,0 +1,5 @@
+mutation RemoveTweet {
+  removeTweet( id: "123" ) {
+    id
+  }
+}

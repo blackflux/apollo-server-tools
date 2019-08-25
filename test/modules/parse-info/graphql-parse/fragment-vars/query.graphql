@@ -1,0 +1,54 @@
+query NewsDetails($id: ID!) {
+  news(newsId: $id) {
+    __typename
+    ...NewsDetail
+  }
+}
+
+fragment NewsDetail on News {
+  __typename
+  id
+  title
+  subtitle
+  about
+  info
+  flag1
+  flag2
+  pin
+  outlet {
+    __typename
+    id
+    name
+    short
+    slogan
+    details
+    homepage
+    phone
+    images {
+      __typename
+      homepage
+    }
+  }
+  agents {
+    __typename
+    id
+    name
+    address {
+      __typename
+      id
+      suite
+      building
+      streetAddress
+      street
+      postalcode
+      city
+      state
+      country
+      centre
+    }
+  }
+  mainImages {
+    __typename
+    homepage
+  }
+}
