@@ -30,7 +30,7 @@ Parse info object to easily access relevant information.
 ### getDeprecationDate(schema, queryAst, offsetInDays = 0)
 
 Fetch nearest deprecation date that is accessed by the query as `http-date` string.
-Returns `null` no deprecated access. Expected custom deprecation syntax, see below.
+Returns `null` when there is no deprecated access. Expected custom deprecation syntax, see below.
 
 Can e.g. be used to return a `Sunset` header.
 
