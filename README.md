@@ -48,6 +48,6 @@ Generate and return introspection result. Deprecated entities are removed if opt
 
 ## Deprecation Syntax
 
-Deprecation functionality is very limited in graphql. This tool allows a workaround syntax by overloading the comments. Anything in the graphql schema can now be deprecated.
+Deprecation functionality is very limited in graphql. This tool allows overloading of comments, which means that everything in the schema can be deprecated.
 
-The comment is expected to be in the form of `[deprecated] YYYY-MM-DD description`, where the date indicates the date of deprecation.
+The deprecation comment is expected to be in the form `[deprecated] YYYY-MM-DD description`, where the date indicates the date of deprecation.
