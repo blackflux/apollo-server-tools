@@ -36,7 +36,7 @@ Can e.g. be used to return a `Sunset` header.
 
 ### getDeprecationDetails(schema, queryAst)
 
-Fetch deprecated entities that accessed by the query. Expects custom deprecation syntax, see below.
+Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
