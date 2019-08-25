@@ -1,0 +1,13 @@
+query search {
+  shows(search: "Atheros") {
+    ... on User {
+      email
+      firstName
+      lastName
+    }
+    ... {
+      name
+      vatId
+    }
+  }
+}

@@ -1,0 +1,11 @@
+query GetPerson {
+  people(id: "7", data: null) {
+    ...NameParts
+    avatar(size: LARGE)
+  }
+}
+
+fragment NameParts on Person {
+  firstName
+  lastName
+}

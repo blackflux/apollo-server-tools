@@ -10,3 +10,20 @@
 [![Gardener](https://github.com/blackflux/js-gardener/blob/master/assets/badge.svg)](https://github.com/blackflux/js-gardener)
 
 Helper for apollo-server
+
+## Install
+
+Install with [npm](https://www.npmjs.com/):
+
+    $ npm install --save apollo-server-tools
+
+## Example
+
+// TODO: ...
+
+## Functions
+
+### parseInfo(info, vars = {})
+
+Parse info object to make accessing the useful information easier.
+

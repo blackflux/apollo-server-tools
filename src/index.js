@@ -1,1 +1,1 @@
-module.exports = (a, b) => a + b;
+module.exports.parseInfo = require('./modules/parse-info');
