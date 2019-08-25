@@ -15,17 +15,17 @@ describe('Testing docs.js', () => {
   });
 
   describe('Testing generateDocs', () => {
-    it('Introspection without deprecated', () => {
+    it('Introspection excludes deprecated', () => {
       const result = fs.smartWrite(
-        path.join(__dirname, 'docs', 'introspection-result-deprecation-removed.json'),
+        path.join(__dirname, 'docs', 'introspection-result-excludes-deprecated.json'),
         generateDocs(schema)
       );
       expect(result).to.equal(false);
     });
 
-    it('Introspection complete', () => {
+    it('Introspection includes deprecated', () => {
       const result = fs.smartWrite(
-        path.join(__dirname, 'docs', 'introspection-result-complete.json'),
+        path.join(__dirname, 'docs', 'introspection-result-includes-deprecated.json'),
         generateDocs(schema, false)
       );
       expect(result).to.equal(false);
