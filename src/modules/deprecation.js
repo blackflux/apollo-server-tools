@@ -7,7 +7,8 @@ const {
 } = require('graphql');
 const parseInfo = require('./parse-info');
 
-const isDeprecated = (fd) => fd && fd.description && fd.description.startsWith('[deprecated] ');
+const isDeprecated = (fd) => fd && /\[deprecated] \d{4}-\d{2}-\d{2} /.test(fd.description);
+module.exports.isDeprecated = isDeprecated;
 
 const getDeprecationDetails = (schema, ast) => {
   const { args } = parseInfo(ast);

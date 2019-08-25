@@ -38,6 +38,14 @@ Can e.g. be used to return a `Sunset` header.
 
 Fetch deprecated entities that accessed by the query. Expected custom deprecation syntax, see below.
 
+## syncDocs(filepath, schema, stripDeprecated = true)
+
+Write introspection result into file. Order is stable. Returns true iff the content has changed. Deprecated entities are removed if option is set. Expected custom deprecation syntax, see below.
+
+## generateDocs(schema, stripDeprecated = true)
+
+Generate and return introspection result. Deprecated entities are removed if option is set. Expected custom deprecation syntax, see below.
+
 ## Deprecation Syntax
 
 Deprecation functionality is very limited in graphql. This tool allows a workaround syntax by overloading the comments. Anything in the graphql schema can now be deprecated.

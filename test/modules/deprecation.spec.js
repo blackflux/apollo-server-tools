@@ -12,7 +12,7 @@ describe('Testing deprecation.js', () => {
   let schema;
   before(() => {
     schema = new ApolloServer({
-      typeDefs: fs.smartRead(path.join(__dirname, 'deprecation', 'schema.graphql')).join('\n')
+      typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n')
     }).schema;
   });
 

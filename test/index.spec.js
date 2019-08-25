@@ -7,7 +7,9 @@ describe('Testing index.js', () => {
     expect(Object.keys(index)).to.deep.equal([
       'parseInfo',
       'getDeprecationDate',
-      'getDeprecationDetails'
+      'getDeprecationDetails',
+      'generateDocs',
+      'syncDocs'
     ]);
   });
 });

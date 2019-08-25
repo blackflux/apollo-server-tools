@@ -109,6 +109,9 @@
     "graphql": "^14.5.3"
   },
   "dependencies": {
-    "lodash.get": "4.4.2"
+    "json-stable-stringify": "1.0.1",
+    "lodash.get": "4.4.2",
+    "object-scan": "10.0.10",
+    "smart-fs": "1.9.10"
   }
 }
