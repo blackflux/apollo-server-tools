@@ -57,6 +57,6 @@ module.exports.getDeprecationDate = (schema, ast, offsetInDays = 0) => {
   if (result === null) {
     return null;
   }
-  result.setTime(result.getTime() + offsetInDays * 86400000);
+  result.setTime(result.getTime() + offsetInDays * 24 * 60 * 60 * 1000);
   return result.toUTCString();
 };
