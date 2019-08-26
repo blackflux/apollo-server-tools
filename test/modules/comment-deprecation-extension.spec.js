@@ -31,7 +31,7 @@ describe('Testing comment-deprecation-extension.js', () => {
   it('Testing Sunset and Deprecation headers returned', async () => {
     const r = await requestHelper('query User { User(id: "1") { id name } }');
     expect(r.body).to.deep.equal({ data: { User: { id: '1', name: 'Name' } } });
-    expect(r.headers.deprecation).to.equal('Fri, 01 Dec 2000 00:00:00 GMT');
+    expect(r.headers.deprecation).to.equal('date="Fri, 01 Dec 2000 00:00:00 GMT"');
     expect(r.headers.sunset).to.equal('Sun, 01 Dec 2002 00:00:00 GMT');
   });
 
