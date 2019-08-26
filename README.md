@@ -23,15 +23,10 @@ Install with [npm](https://www.npmjs.com/):
 ```js
 const path = require('path');
 const { createServer } = require('http');
-const get = require('lodash.get');
-const set = require('lodash.set');
-const { GraphQLExtension } = require('graphql-extensions');
 const { ApolloServer } = require('apollo-server-express');
-const { getDeprecationDate, syncDocs } = require('apollo-server-tools');
+const { syncDocs, CommentDeprecationExtension } = require('apollo-server-tools');
 const express = require('express');
 const request = require('request-promise');
-
-// --- standard graphql server setup
 
 const app = express();
 const typeDefs = `
@@ -54,44 +49,10 @@ const resolvers = {
   }
 };
 
-// --- custom deprecation setup
-
-Object.values(resolvers).forEach((queryTypeResolver) => {
-  Object.entries(queryTypeResolver).forEach(([resolverName, resolverFn]) => {
-    Object.assign(queryTypeResolver, {
-      [resolverName]: (obj, args, context, info) => {
-        const deprecationDate = getDeprecationDate(info.schema, info.operation);
-        if (deprecationDate !== null) {
-          set(context, 'context.custom.headers.Deprecation', `date="${deprecationDate.toUTCString()}"`);
-          const sunsetDate = new Date();
-          sunsetDate.setTime(deprecationDate.getTime() + 2 * 365 * 24 * 60 * 60 * 1000);
-          set(context, 'context.custom.headers.Sunset', sunsetDate.toUTCString());
-        }
-        return resolverFn(obj, args, context, info);
-      }
-    });
-  });
-});
-
-class HeaderInjector extends GraphQLExtension {
-  willSendResponse(kwargs) {
-    const { context, graphqlResponse } = kwargs;
-    Object
-      .entries(get(context, 'context.custom.headers', {}))
-      .filter(([name, value]) => typeof value === 'string')
-      .forEach(([name, value]) => {
-        graphqlResponse.http.headers.set(name, value);
-      });
-    return kwargs;
-  }
-}
-
-// --- continue standard graphql server setup
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  extensions: [() => new HeaderInjector()],
+  extensions: [() => new CommentDeprecationExtension()],
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
@@ -139,6 +100,10 @@ Can e.g. be used to return a `Sunset` header.
 ### getDeprecationDetails(schema, queryAst)
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
+
+### class CommentDeprecationExtension(sunsetInDays = 2 * 365)
+
+Graphql Extension that injects appropriate headers into responses.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 

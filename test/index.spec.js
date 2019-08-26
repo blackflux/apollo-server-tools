@@ -8,6 +8,7 @@ describe('Testing index.js', () => {
       'parseInfo',
       'getDeprecationDate',
       'getDeprecationDetails',
+      'CommentDeprecationExtension',
       'generateDocs',
       'syncDocs'
     ]);

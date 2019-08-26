@@ -44,7 +44,7 @@ const getDeprecationDetails = (schema, ast) => {
 };
 module.exports.getDeprecationDetails = getDeprecationDetails;
 
-module.exports.getDeprecationDate = (schema, ast) => {
+const getDeprecationDate = (schema, ast) => {
   let result = null;
   getDeprecationDetails(schema, ast)
     .forEach((d) => {
@@ -56,3 +56,4 @@ module.exports.getDeprecationDate = (schema, ast) => {
     });
   return result;
 };
+module.exports.getDeprecationDate = getDeprecationDate;
