@@ -15,6 +15,11 @@ type User {
   # [deprecated] 2000-12-01 Please use full_name instead
   name: String
   avatar_url: Url
+  tweets(
+    cursor: String,
+    # [deprecated] 2011-04-25 Please use cursor instead
+    limit: Int
+  ): [Tweet!]!
 }
 
 # [deprecated] 2001-04-26 Please use separate rest api instead

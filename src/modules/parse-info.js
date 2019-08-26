@@ -1,3 +1,4 @@
+const set = require('lodash.set');
 const { valueFromASTUntyped } = require('graphql');
 
 const extractNested = (selection, path, ctx) => {
@@ -23,15 +24,11 @@ const extractNested = (selection, path, ctx) => {
       if (selection.arguments !== undefined) {
         selection.arguments
           .map((arg) => [
-            arg,
             path.concat(selection.name.value, arg.name.value),
             arg.value.kind === 'Variable' ? ctx.vars[arg.value.name.value] : valueFromASTUntyped(arg.value)
           ])
-          .forEach(([arg, p, value]) => Object.assign(ctx.args, {
-            [p[0]]: Object.assign(ctx.args[p[0]] || {}, value === null ? {} : {
-              [p.slice(1).join('.')]: value
-            })
-          }));
+          .filter(([_, value]) => value !== null)
+          .forEach(([p, value]) => set(ctx.args, p, value));
       }
       if (selection.selectionSet === undefined) {
         return selection.name.value !== '__typename' ? [path.concat(selection.name.value)] : [];

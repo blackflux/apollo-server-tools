@@ -20,7 +20,7 @@ const getDeprecationDetails = ({
   const result = new Set();
 
   visit(ast, visitWithTypeInfo(typeInfo, {
-    enter(node, key, parent) {
+    enter(node, key, parent, path, ancestors) {
       const fieldDef = typeInfo.getFieldDef();
       // deprecate regular fieldDefs
       if (isDeprecated(fieldDef)) {
@@ -30,7 +30,12 @@ const getDeprecationDetails = ({
       if (fieldDef && Array.isArray(fieldDef.args)) {
         fieldDef.args
           .filter((arg) => isDeprecated(arg))
-          .filter((arg) => get(args, [get(parent, 'name.value'), arg.name]) !== undefined)
+          .filter((arg) => get(args, [
+            ...ancestors
+              .filter((a) => a.kind === 'Field')
+              .map((a) => get(a, 'name.value')),
+            arg.name
+          ]) !== undefined)
           .forEach((arg) => result.add(arg));
       }
       // deprecate result types

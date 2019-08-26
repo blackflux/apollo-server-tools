@@ -114,6 +114,7 @@
     "graphql-extensions": "0.10.0",
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
+    "lodash.set": "4.3.2",
     "object-scan": "10.0.10",
     "smart-fs": "1.9.10"
   }

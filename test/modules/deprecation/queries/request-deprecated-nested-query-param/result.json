@@ -1,0 +1,6 @@
+[
+  {
+    "description": "[deprecated] 2011-04-25 Please use cursor instead",
+    "name": "limit"
+  }
+]
