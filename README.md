@@ -19,7 +19,62 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Example
 
-// TODO: ...
+<!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
+```js
+const path = require('path');
+const { syncDocs, CommentDeprecationExtension } = require('apollo-server-tools');
+const { ApolloServer } = require('apollo-server');
+const request = require('request-promise');
+
+const typeDefs = `
+    type Query {
+        # [deprecated] 2019-01-01 Deprecated, add reason and what to do...
+        messages: [Message!]!
+    }
+    # [deprecated] 2019-02-02 Also Deprecated, notice the date
+    type Message {
+        id: String
+        # [deprecated] 2019-03-03 Yep, Deprecated, we can deprecate everything now
+        content: String
+    }
+`;
+const resolvers = {
+  Query: {
+    messages: () => [
+      { id: 1, content: 'Data', payload: null }
+    ]
+  }
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  extensions: [() => new CommentDeprecationExtension()],
+  introspection: false // clients should obtain this from the generated file (see below)
+});
+
+// --- deprecation header are returned when deprecated functionality is accessed
+
+server.listen().then(async (serverInfo) => {
+  const r = await request({
+    method: 'POST',
+    uri: `${serverInfo.url}graphql`,
+    json: true,
+    body: { query: 'query Messages { messages { id, content } }' },
+    resolveWithFullResponse: true
+  });
+  // As per example https://tools.ietf.org/html/draft-dalal-deprecation-header-00#section-5
+  console.log('Deprecation Header:', r.headers.deprecation);
+  console.log('Sunset Header:', r.headers.sunset);
+  console.log('Response Body:', JSON.stringify(r.body));
+  serverInfo.server.close();
+});
+
+// --- how you could sync graph api documentation to file
+
+syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
+
+```
 
 ## Functions
 
@@ -37,6 +92,10 @@ Can e.g. be used to return a `Sunset` header.
 ### getDeprecationDetails(schema, queryAst)
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
+
+### class CommentDeprecationExtension(sunsetInDays = 2 * 365)
+
+Graphql Extension that injects appropriate headers into responses.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
