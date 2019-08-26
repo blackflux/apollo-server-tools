@@ -44,7 +44,7 @@ const getDeprecationDetails = (schema, ast) => {
 };
 module.exports.getDeprecationDetails = getDeprecationDetails;
 
-module.exports.getDeprecationDate = (schema, ast, offsetInDays = 0) => {
+module.exports.getDeprecationDate = (schema, ast) => {
   let result = null;
   getDeprecationDetails(schema, ast)
     .forEach((d) => {
@@ -54,9 +54,5 @@ module.exports.getDeprecationDate = (schema, ast, offsetInDays = 0) => {
         result = date;
       }
     });
-  if (result === null) {
-    return null;
-  }
-  result.setTime(result.getTime() + offsetInDays * 24 * 60 * 60 * 1000);
-  return result.toUTCString();
+  return result;
 };
