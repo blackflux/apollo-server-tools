@@ -27,9 +27,9 @@ Install with [npm](https://www.npmjs.com/):
 
 Parse info object to easily access relevant information.
 
-### getDeprecationDate(schema, queryAst, offsetInDays = 0)
+### getDeprecationDate(schema, queryAst)
 
-Fetch nearest deprecation date that is accessed by the query as `http-date` string.
+Fetch nearest deprecation date that is accessed by the query as date object.
 Returns `null` when there is no deprecated access. Expects custom deprecation syntax, see below.
 
 Can e.g. be used to return a `Sunset` header.
