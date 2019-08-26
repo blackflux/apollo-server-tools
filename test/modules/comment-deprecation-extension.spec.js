@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('smart-fs');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
+const get = require('lodash.get');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
@@ -20,7 +21,8 @@ describe('Testing comment-deprecation-extension.js', () => {
       uri: `${serverInfo.url}graphql`,
       json: true,
       body: { query },
-      resolveWithFullResponse: true
+      resolveWithFullResponse: true,
+      simple: false
     });
   });
 
@@ -50,5 +52,12 @@ describe('Testing comment-deprecation-extension.js', () => {
     expect(r.body).to.deep.equal({ data: { User: { id: '1', name: 'Name' } } });
     expect(r.headers.deprecation).to.equal('date="Fri, 01 Dec 2000 00:00:00 GMT"');
     expect(r.headers.sunset).to.equal('Sun, 01 Dec 2002 00:00:00 GMT');
+  });
+
+  it('Testing Invalid Query', async () => {
+    const r = await requestHelper('query Unknown { Unknown { id } }');
+    expect(get(r, 'body.errors[0].message')).to.include('Cannot query field "Unknown" on type "Query".');
+    expect(r.headers.deprecation).to.equal(undefined);
+    expect(r.headers.sunset).to.equal(undefined);
   });
 });
