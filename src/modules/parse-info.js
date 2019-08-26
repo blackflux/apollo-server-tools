@@ -1,3 +1,4 @@
+const set = require('lodash.set');
 const { valueFromASTUntyped } = require('graphql');
 
 const extractNested = (selection, path, ctx) => {
@@ -23,15 +24,11 @@ const extractNested = (selection, path, ctx) => {
       if (selection.arguments !== undefined) {
         selection.arguments
           .map((arg) => [
-            arg,
             path.concat(selection.name.value, arg.name.value),
             arg.value.kind === 'Variable' ? ctx.vars[arg.value.name.value] : valueFromASTUntyped(arg.value)
           ])
-          .forEach(([arg, p, value]) => Object.assign(ctx.args, {
-            [p[0]]: Object.assign(ctx.args[p[0]] || {}, value === null ? {} : {
-              [p.slice(1).join('.')]: value
-            })
-          }));
+          .filter(([_, value]) => value !== null)
+          .forEach(([p, value]) => set(ctx.args, p, value));
       }
       if (selection.selectionSet === undefined) {
         return selection.name.value !== '__typename' ? [path.concat(selection.name.value)] : [];
@@ -49,11 +46,11 @@ const extractNested = (selection, path, ctx) => {
   }
 };
 
-module.exports = (info, vars = {}) => {
+module.exports = ({ ast, fragments = {}, vars = {} }) => {
   const argsGrouped = {};
-  const fieldsGrouped = extractNested(info, [], { args: argsGrouped, fragments: {}, vars })
+  const fieldsGrouped = extractNested(ast, [], { args: argsGrouped, fragments, vars })
     .reduce((p, c) => Object.assign(p, { [c[0]]: (p[c[0]] || []).concat(c.slice(1).join('.')) }), {});
-  const args = info.kind === 'Document' ? argsGrouped : (Object.values(argsGrouped)[0] || {});
-  const fields = info.kind === 'Document' ? fieldsGrouped : Object.values(fieldsGrouped)[0];
+  const args = ast.kind === 'Document' ? argsGrouped : (Object.values(argsGrouped)[0] || {});
+  const fields = ast.kind === 'Document' ? fieldsGrouped : Object.values(fieldsGrouped)[0];
   return { args, fields, ops: Object.keys(fieldsGrouped) };
 };

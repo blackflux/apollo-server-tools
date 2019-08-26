@@ -10,15 +10,17 @@ const parseInfo = require('./parse-info');
 const isDeprecated = (fd) => fd && /\[deprecated] \d{4}-\d{2}-\d{2} /.test(fd.description);
 module.exports.isDeprecated = isDeprecated;
 
-const getDeprecationDetails = (schema, ast) => {
-  const { args } = parseInfo(ast);
+const getDeprecationDetails = ({
+  schema, ast, fragments = {}, vars = {}
+}) => {
+  const { args } = parseInfo({ ast, fragments, vars });
   const typeMap = schema.getTypeMap();
   const typeInfo = new TypeInfo(schema);
 
   const result = new Set();
 
   visit(ast, visitWithTypeInfo(typeInfo, {
-    enter(node, key, parent) {
+    enter(node, key, parent, path, ancestors) {
       const fieldDef = typeInfo.getFieldDef();
       // deprecate regular fieldDefs
       if (isDeprecated(fieldDef)) {
@@ -28,7 +30,12 @@ const getDeprecationDetails = (schema, ast) => {
       if (fieldDef && Array.isArray(fieldDef.args)) {
         fieldDef.args
           .filter((arg) => isDeprecated(arg))
-          .filter((arg) => get(args, [get(parent, 'name.value'), arg.name]) !== undefined)
+          .filter((arg) => get(args, [
+            ...ancestors
+              .filter((a) => a.kind === 'Field')
+              .map((a) => get(a, 'name.value')),
+            arg.name
+          ]) !== undefined)
           .forEach((arg) => result.add(arg));
       }
       // deprecate result types
@@ -44,9 +51,13 @@ const getDeprecationDetails = (schema, ast) => {
 };
 module.exports.getDeprecationDetails = getDeprecationDetails;
 
-const getDeprecationDate = (schema, ast) => {
+const getDeprecationDate = ({
+  schema, ast, fragments = {}, vars = {}
+}) => {
   let result = null;
-  getDeprecationDetails(schema, ast)
+  getDeprecationDetails({
+    schema, ast, fragments, vars
+  })
     .forEach((d) => {
       const date = new Date(d.description.split(' ', 2)[1]);
       // compute earliest deprecation date

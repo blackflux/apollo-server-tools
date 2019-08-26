@@ -2,7 +2,9 @@
   "args": {
     "people": {
       "id": "7",
-      "avatar.size": "LARGE"
+      "avatar": {
+        "size": "LARGE"
+      }
     }
   },
   "fields": {

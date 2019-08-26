@@ -20,16 +20,16 @@ describe('Testing deprecation.js', () => {
     const root = path.join(__dirname, 'deprecation', 'queries');
     getDirectories(root).forEach((d) => {
       it(`Testing ${d}`, () => {
-        const query = parse(fs.smartRead(path.join(root, d, 'query.graphql')).join('\n'));
+        const ast = parse(fs.smartRead(path.join(root, d, 'query.graphql')).join('\n'));
         const expectedResult = fs.smartRead(path.join(root, d, 'result.json'));
         const expectedDeprecationDate = fs.smartRead(path.join(root, d, 'deprecation.json'));
-        expect(validate(schema, query)).to.deep.equal([]);
+        expect(validate(schema, ast)).to.deep.equal([]);
 
-        const result = getDeprecationDetails(schema, query).map((e) => ({
+        const result = getDeprecationDetails({ schema, ast }).map((e) => ({
           name: e.name,
           description: e.description
         }));
-        const deprecationDate = getDeprecationDate(schema, query);
+        const deprecationDate = getDeprecationDate({ schema, ast });
         expect(result).to.deep.equal(expectedResult);
         expect(deprecationDate === null ? null : deprecationDate.toUTCString())
           .to.equal(expectedDeprecationDate);
