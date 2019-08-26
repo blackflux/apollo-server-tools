@@ -19,16 +19,13 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Example
 
-<!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,class-methods-use-this,no-console -->
+<!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
 ```js
 const path = require('path');
-const { createServer } = require('http');
-const { ApolloServer } = require('apollo-server-express');
 const { syncDocs, CommentDeprecationExtension } = require('apollo-server-tools');
-const express = require('express');
+const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 
-const app = express();
 const typeDefs = `
     type Query {
         # [deprecated] 2019-01-01 Deprecated, add reason and what to do...
@@ -56,17 +53,12 @@ const server = new ApolloServer({
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
-
-const httpServer = createServer(app);
-server.installSubscriptionHandlers(httpServer);
-
 // --- deprecation header are returned when deprecated functionality is accessed
 
-httpServer.listen({ port: 8000 }, async () => {
+server.listen().then(async (serverInfo) => {
   const r = await request({
     method: 'POST',
-    uri: 'http://localhost:8000/graphql',
+    uri: `${serverInfo.url}graphql`,
     json: true,
     body: { query: 'query Messages { messages { id, content } }' },
     resolveWithFullResponse: true
@@ -75,7 +67,7 @@ httpServer.listen({ port: 8000 }, async () => {
   console.log('Deprecation Header:', r.headers.deprecation);
   console.log('Sunset Header:', r.headers.sunset);
   console.log('Response Body:', JSON.stringify(r.body));
-  httpServer.close();
+  serverInfo.server.close();
 });
 
 // --- how you could sync graph api documentation to file

@@ -7,17 +7,17 @@ const request = require('request-promise');
 const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
 
 describe('Testing comment-deprecation-extension.js', () => {
-  let meta;
+  let serverInfo;
   let requestHelper;
   before(async () => {
-    meta = await new Promise((resolve) => new ApolloServer({
+    serverInfo = await new ApolloServer({
       typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n'),
       resolvers: { Query: { User: () => ({ id: '1', name: 'Name' }) } },
       extensions: [() => new CommentDeprecationExtension()]
-    }).listen().then(resolve));
+    }).listen();
     requestHelper = (query) => request({
       method: 'post',
-      uri: `${meta.url}graphql`,
+      uri: `${serverInfo.url}graphql`,
       json: true,
       body: { query },
       resolveWithFullResponse: true
@@ -25,7 +25,7 @@ describe('Testing comment-deprecation-extension.js', () => {
   });
 
   after(async () => {
-    await meta.server.close();
+    await serverInfo.server.close();
   });
 
   it('Testing Sunset and Deprecation headers returned', async () => {
