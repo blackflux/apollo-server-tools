@@ -1,0 +1,10 @@
+fragment UserParts on User {
+  id
+  name
+}
+
+query User {
+  User(id: "1") {
+    ...UserParts
+  }
+}
