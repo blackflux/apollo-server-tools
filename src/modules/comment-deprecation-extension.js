@@ -19,7 +19,7 @@ class CommentDeprecationExtension extends GraphQLExtension {
 
   willSendResponse(kwargs) {
     const { graphqlResponse } = kwargs;
-    if (this.deprecationDate !== null) {
+    if (![null, undefined].includes(this.deprecationDate)) {
       graphqlResponse.http.headers.set('Deprecation', `date="${this.deprecationDate.toUTCString()}"`);
       const sunsetDate = new Date();
       sunsetDate.setTime(this.deprecationDate.getTime() + this.sunsetInDays * 24 * 60 * 60 * 1000);
