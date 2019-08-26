@@ -31,7 +31,8 @@ describe('Testing deprecation.js', () => {
         }));
         const deprecationDate = getDeprecationDate(schema, query);
         expect(result).to.deep.equal(expectedResult);
-        expect(deprecationDate).to.equal(expectedDeprecationDate);
+        expect(deprecationDate === null ? null : deprecationDate.toUTCString())
+          .to.equal(expectedDeprecationDate);
       });
     });
   });
