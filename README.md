@@ -78,18 +78,18 @@ syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
 
 ## Functions
 
-### parseInfo(info, vars = {})
+### parseInfo({ ast, fragments = {}, vars = {} })
 
 Parse info object to easily access relevant information.
 
-### getDeprecationDate(schema, queryAst)
+### getDeprecationDate({ schema, ast, fragments = {}, vars = {} })
 
 Fetch nearest deprecation date that is accessed by the query as date object.
 Returns `null` when there is no deprecated access. Expects custom deprecation syntax, see below.
 
 Can e.g. be used to return a `Sunset` header.
 
-### getDeprecationDetails(schema, queryAst)
+### getDeprecationDetails({ schema, ast, fragments = {}, vars = {} })
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 

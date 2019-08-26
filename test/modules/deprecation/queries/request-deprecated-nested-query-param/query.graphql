@@ -1,0 +1,7 @@
+{
+  User(id: "123"){
+    tweets(limit: 1){
+      id
+    }
+  }
+}
