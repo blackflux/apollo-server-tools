@@ -19,7 +19,109 @@ Install with [npm](https://www.npmjs.com/):
 
 ## Example
 
-// TODO: ...
+<!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,class-methods-use-this,no-console -->
+```js
+const path = require('path');
+const { createServer } = require('http');
+const get = require('lodash.get');
+const set = require('lodash.set');
+const { GraphQLExtension } = require('graphql-extensions');
+const { ApolloServer } = require('apollo-server-express');
+const { getDeprecationDate, syncDocs } = require('apollo-server-tools');
+const express = require('express');
+const request = require('request-promise');
+
+// --- standard graphql server setup
+
+const app = express();
+const typeDefs = `
+    type Query {
+        # [deprecated] 2019-01-01 Deprecated, add reason and what to do...
+        messages: [Message!]!
+    }
+    # [deprecated] 2019-02-02 Also Deprecated, notice the date
+    type Message {
+        id: String
+        # [deprecated] 2019-03-03 Yep, Deprecated, we can deprecate everything now
+        content: String
+    }
+`;
+const resolvers = {
+  Query: {
+    messages: () => [
+      { id: 1, content: 'Data', payload: null }
+    ]
+  }
+};
+
+// --- custom deprecation setup
+
+Object.values(resolvers).forEach((queryTypeResolver) => {
+  Object.entries(queryTypeResolver).forEach(([resolverName, resolverFn]) => {
+    Object.assign(queryTypeResolver, {
+      [resolverName]: (obj, args, context, info) => {
+        const deprecationDate = getDeprecationDate(info.schema, info.operation);
+        if (deprecationDate !== null) {
+          set(context, 'context.custom.headers.Deprecation', `date="${deprecationDate.toUTCString()}"`);
+          const sunsetDate = new Date();
+          sunsetDate.setTime(deprecationDate.getTime() + 2 * 365 * 24 * 60 * 60 * 1000);
+          set(context, 'context.custom.headers.Sunset', sunsetDate.toUTCString());
+        }
+        return resolverFn(obj, args, context, info);
+      }
+    });
+  });
+});
+
+class HeaderInjector extends GraphQLExtension {
+  willSendResponse(kwargs) {
+    const { context, graphqlResponse } = kwargs;
+    Object
+      .entries(get(context, 'context.custom.headers', {}))
+      .filter(([name, value]) => typeof value === 'string')
+      .forEach(([name, value]) => {
+        graphqlResponse.http.headers.set(name, value);
+      });
+    return kwargs;
+  }
+}
+
+// --- continue standard graphql server setup
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  extensions: [() => new HeaderInjector()],
+  introspection: false // clients should obtain this from the generated file (see below)
+});
+
+server.applyMiddleware({ app, path: '/graphql' });
+
+const httpServer = createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+// --- deprecation header are returned when deprecated functionality is accessed
+
+httpServer.listen({ port: 8000 }, async () => {
+  const r = await request({
+    method: 'POST',
+    uri: 'http://localhost:8000/graphql',
+    json: true,
+    body: { query: 'query Messages { messages { id, content } }' },
+    resolveWithFullResponse: true
+  });
+  // As per example https://tools.ietf.org/html/draft-dalal-deprecation-header-00#section-5
+  console.log('Deprecation Header:', r.headers.deprecation);
+  console.log('Sunset Header:', r.headers.sunset);
+  console.log('Response Body:', JSON.stringify(r.body));
+  httpServer.close();
+});
+
+// --- how you could sync graph api documentation to file
+
+syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
+
+```
 
 ## Functions
 
