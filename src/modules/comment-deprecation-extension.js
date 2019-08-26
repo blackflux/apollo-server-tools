@@ -1,3 +1,4 @@
+const assert = require('assert');
 const { GraphQLExtension } = require('graphql-extensions');
 const { getDeprecationDate } = require('./deprecation');
 
@@ -5,19 +6,15 @@ class CommentDeprecationExtension extends GraphQLExtension {
   constructor(sunsetInDays = 2 * 365) {
     super();
     this.sunsetInDays = sunsetInDays;
-    this.deprecationDate = null;
+    this.deprecationDate = undefined;
   }
 
-  willResolveField(obj, args, context, info) {
-    const deprecationDate = getDeprecationDate({
-      schema: info.schema,
-      ast: info.operation,
-      fragments: info.fragments,
-      vars: info.variableValues
+  executionDidStart({ executionArgs }) {
+    assert(this.deprecationDate === undefined);
+    this.deprecationDate = getDeprecationDate({
+      schema: executionArgs.schema,
+      ast: executionArgs.document
     });
-    if (deprecationDate !== null && (this.deprecationDate === null || deprecationDate < this.deprecationDate)) {
-      this.deprecationDate = deprecationDate;
-    }
   }
 
   willSendResponse(kwargs) {
