@@ -9,7 +9,12 @@ class CommentDeprecationExtension extends GraphQLExtension {
   }
 
   willResolveField(obj, args, context, info) {
-    const deprecationDate = getDeprecationDate(info.schema, info.operation);
+    const deprecationDate = getDeprecationDate({
+      schema: info.schema,
+      ast: info.operation,
+      fragments: info.fragments,
+      vars: info.variableValues
+    });
     if (deprecationDate !== null && (this.deprecationDate === null || deprecationDate < this.deprecationDate)) {
       this.deprecationDate = deprecationDate;
     }

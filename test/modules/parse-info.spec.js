@@ -15,8 +15,8 @@ describe('Testing parse-info.js', () => {
         const query = fs.smartRead(path.join(root, testDir, 'query.graphql')).join('\n');
         const vars = fs.smartRead(path.join(root, testDir, 'variables.json'));
         const result = fs.smartRead(path.join(root, testDir, 'result.json'));
-        const document = parse(query);
-        expect(parseInfo(document, vars)).to.deep.equal(result);
+        const ast = parse(query);
+        expect(parseInfo({ ast, vars })).to.deep.equal(result);
       });
     });
   });
@@ -25,15 +25,15 @@ describe('Testing parse-info.js', () => {
     const root = path.join(__dirname, 'parse-info', 'resolver-info');
     getDirectories(root).forEach((testDir) => {
       it(`Testing ${testDir}`, () => {
-        const info = fs.smartRead(path.join(root, testDir, 'info.json'));
+        const ast = fs.smartRead(path.join(root, testDir, 'ast.json'));
         const result = fs.smartRead(path.join(root, testDir, 'result.json'));
-        expect(parseInfo(info)).to.deep.equal(result);
+        expect(parseInfo({ ast })).to.deep.equal(result);
       });
     });
   });
 
   it('Testing unknown selection kind provided.', () => {
-    expect(() => parseInfo({ fieldNodes: [{ kind: 'Unknown' }] }).fields)
+    expect(() => parseInfo({ ast: { fieldNodes: [{ kind: 'Unknown' }] } }).fields)
       .to.throw('Unexpected Kind: Unknown');
   });
 });

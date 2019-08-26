@@ -49,11 +49,11 @@ const extractNested = (selection, path, ctx) => {
   }
 };
 
-module.exports = (info, vars = {}) => {
+module.exports = ({ ast, fragments = {}, vars = {} }) => {
   const argsGrouped = {};
-  const fieldsGrouped = extractNested(info, [], { args: argsGrouped, fragments: {}, vars })
+  const fieldsGrouped = extractNested(ast, [], { args: argsGrouped, fragments, vars })
     .reduce((p, c) => Object.assign(p, { [c[0]]: (p[c[0]] || []).concat(c.slice(1).join('.')) }), {});
-  const args = info.kind === 'Document' ? argsGrouped : (Object.values(argsGrouped)[0] || {});
-  const fields = info.kind === 'Document' ? fieldsGrouped : Object.values(fieldsGrouped)[0];
+  const args = ast.kind === 'Document' ? argsGrouped : (Object.values(argsGrouped)[0] || {});
+  const fields = ast.kind === 'Document' ? fieldsGrouped : Object.values(fieldsGrouped)[0];
   return { args, fields, ops: Object.keys(fieldsGrouped) };
 };
