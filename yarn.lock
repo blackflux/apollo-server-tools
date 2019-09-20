@@ -206,17 +206,6 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.2.4.tgz#684a14f4ca35d46f44abc87dfc696e5e4fe8a020"
   integrity sha512-Ze5SDNt325yZvNO7s5C4fXDscjJ6dcqLFXJQ/M7dZRQCewuDj2iDUuBi6jLQt+APbW9RjjVEvLr35FXuOEqjow==
 
-"@hapi/joi@16.1.1":
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-16.1.1.tgz#67a47cf46b163782ab69802b17ac4a86fb89f83e"
-  integrity sha512-v/XNMGNz+Nx7578Cx2bMunoQHuY4LFxRltJ6uA1LjS6LWakgPCJC4MTr1ucfCnjjbDtaQizrQx9oWXY3WcFcyw==
-  dependencies:
-    "@hapi/address" "^2.1.1"
-    "@hapi/formula" "^1.2.0"
-    "@hapi/hoek" "^8.2.4"
-    "@hapi/pinpoint" "^1.0.2"
-    "@hapi/topo" "^3.1.3"
-
 "@hapi/joi@16.1.2":
   version "16.1.2"
   resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-16.1.2.tgz#c566d9e0d81d6847f7622f7d5e23adadaa2d7332"
@@ -3425,10 +3414,10 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.2"
     object-path "^0.11.4"
 
-graphql@14.5.6, graphql@^14.5.3:
-  version "14.5.6"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.6.tgz#3fa12173b50e6ccdef953c31c82f37c50ef58bec"
-  integrity sha512-zJ6Oz8P1yptV4O4DYXdArSwvmirPetDOBnGFRBl0zQEC68vNW3Ny8qo8VzMgfr+iC8PKiRYJ+f2wub41oDCoQg==
+graphql@14.5.7, graphql@^14.5.3:
+  version "14.5.7"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.7.tgz#8646a3fcc07922319cc3967eba4a64b32929f77f"
+  integrity sha512-as410RMJSUFqF8RcH2QWxZ5ioqHzsH9VWnWbaU+UnDXJ/6azMDIYPrtXCBPXd8rlunEVb7W8z6fuUnNHMbFu9A==
   dependencies:
     iterall "^1.2.2"
 
@@ -4245,13 +4234,6 @@ java-properties@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/java-properties/-/java-properties-1.0.2.tgz#ccd1fa73907438a5b5c38982269d0e771fe78211"
   integrity sha512-qjdpeo2yKlYTH7nFdK0vbZWuTCesk4o63v5iVOlhMQPfuIZQfW/HI35SjfhA+4qpg36rnFSvUK5b1m+ckIblQQ==
-
-joi-strict@1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.1.4.tgz#282935d3b33891e4067b32de2c1149b661aa9121"
-  integrity sha512-2p/p3r36aEiOEOS73oFbLq2bkVOeUs3LIitKS2rQpV2W1fg7Co3uhC6THs0j9JWOhKuKUC9RdMm9i7TNxhfvTw==
-  dependencies:
-    "@hapi/joi" "16.1.1"
 
 joi-strict@1.1.5:
   version "1.1.5"
@@ -5270,10 +5252,10 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-nock@11.3.4:
-  version "11.3.4"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.4.tgz#b3d8fde986da8f8484f4b8958e270fbb91250430"
-  integrity sha512-Mqjk3DeOkuji8eYaveUku+vMswxzVyhrKAz1J9jE86IsEHQg4136Z/PHz81lcjyz9F3yrJXu56Gb/S+LFUOZVg==
+nock@11.3.5:
+  version "11.3.5"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-11.3.5.tgz#f2c7b4b672a04c35342593b6bfd821497881199c"
+  integrity sha512-6WGeZcWc3RExkBcMSYSrUm/5YukDo52m/jhwniQyrnuiCnKRljBwwje9vTwJyEi4J6m2bq0Aj6C1vzuM6iuaeg==
   dependencies:
     chai "^4.1.2"
     debug "^4.1.0"
@@ -5349,15 +5331,15 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
-node-tdd@2.5.9:
-  version "2.5.9"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.9.tgz#96f13f9347d86e558c8597e4b0596ea536c1afcd"
-  integrity sha512-F5S9amABe4jbOZB4RXoNbG8Xt4iTS9VxswHjWQ1N2TMQJ+LqdI8YNvd7abZ4KYLXHk9/jZWB+EuCKpF0g/ouLA==
+node-tdd@2.5.11:
+  version "2.5.11"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.11.tgz#5a19005b16267f99db358615615e50abb14aac24"
+  integrity sha512-/bfaJ9zTwxiU432nbEQxMXmwyXfd/Yw0GHZyxEhCldvI0pNu8KmQddRKK92Hhzj5ROGEd0cfWqntrRCSNUh9jA==
   dependencies:
     callsites "3.1.0"
-    joi-strict "1.1.4"
+    joi-strict "1.1.5"
     lodash.get "4.4.2"
-    nock "11.3.4"
+    nock "11.3.5"
     smart-fs "1.9.14"
     timekeeper "2.2.0"
     tmp "0.1.0"
