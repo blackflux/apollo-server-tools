@@ -1,4 +1,3 @@
-/* eslint-disable mocha/no-setup-in-describe */
 const path = require('path');
 const fs = require('smart-fs');
 const expect = require('chai').expect;
