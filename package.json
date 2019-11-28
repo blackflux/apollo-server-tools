@@ -115,6 +115,6 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "object-scan": "10.0.13",
-    "smart-fs": "1.11.0"
+    "smart-fs": "1.11.2"
   }
 }
