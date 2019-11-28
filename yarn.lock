@@ -210,10 +210,10 @@
   dependencies:
     smart-fs "1.11.0"
 
-"@blackflux/robo-config-plugin@2.6.17":
-  version "2.6.17"
-  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-2.6.17.tgz#23bce5b63f2d93fdf1fdbc71475d9f1a18f5b20a"
-  integrity sha512-Ys7aZlJawUxsOFonSk7u4oDa3ReiX1VYGNJAnqE857jRt9j2Ayj2f4PzwTUC0l5ZrdD331VwI+O5bwUAPjjAqA==
+"@blackflux/robo-config-plugin@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@blackflux/robo-config-plugin/-/robo-config-plugin-3.0.1.tgz#2ef76a88a10fcf16eec2336c74019b50bcf83eed"
+  integrity sha512-iC5/y0P8ucnBxj4Cjg49PLkN1KFdnBcveLoq1rr/76ZLB0skw3yCRqy/51/IphPjgpf1QP5hkYw7zY2cBEq1hg==
 
 "@hapi/address@^2.1.2":
   version "2.1.2"
@@ -2633,10 +2633,10 @@ eslint-plugin-markdown@1.0.1:
     remark-parse "^5.0.0"
     unified "^6.1.2"
 
-eslint-plugin-mocha@6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-6.2.1.tgz#f2ae6d82511291949e440a34b57df773cb4b5ede"
-  integrity sha512-o3Ibhpczi5MjUVpnlnrpC/+oJYGoHKB5m4bQdRnaAOeFCN3HRkqBisQ2/h0hEuCR4lPxyHP1Qzyjpna8MsOdlA==
+eslint-plugin-mocha@6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mocha/-/eslint-plugin-mocha-6.2.2.tgz#6ef4b78bd12d744beb08a06e8209de330985100d"
+  integrity sha512-oNhPzfkT6Q6CJ0HMVJ2KLxEWG97VWGTmuHOoRcDLE0U88ugUyFNV9wrT2XIt5cGtqc5W9k38m4xTN34L09KhBA==
   dependencies:
     ramda "^0.26.1"
 
@@ -4371,15 +4371,22 @@ joi-strict@1.1.7:
   dependencies:
     "@hapi/joi" "16.1.7"
 
-js-gardener@2.0.114:
-  version "2.0.114"
-  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.114.tgz#d5bee26a4840794ddc3455cc41af7886976ad3fd"
-  integrity sha512-fgBwEepiJgwT5wR1B2llsvhWeeCiPaY4/o5oLYoJ+pOjgOdy2hi5V9xaRYimzg2yDHSdy1Zu1nFWJBdlZzN7xg==
+joi-strict@1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.1.8.tgz#68e3b8b55a70437438f31ffccd3c83a43f39688f"
+  integrity sha512-shYn0h5fzXN3JDMZSlzc4m+vGdnNboAv2dLlQHu5eAbJoVWWhICGDbeayjMrsPjICePPvHiZwbOzNyyAakznCQ==
+  dependencies:
+    "@hapi/joi" "16.1.7"
+
+js-gardener@2.0.115:
+  version "2.0.115"
+  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.115.tgz#58acf55135daf02fc7649a3be8f3744e0afd6f44"
+  integrity sha512-N0x1hp+IiDydwQsv09dNUHA+Bz6DlCvIpf/igMOM9Ia2dmPfW14Q5eVxUa4getDKbmi+/R5FMVNAqiBbyWGpnQ==
   dependencies:
     chalk "3.0.0"
     fancy-log "1.3.3"
     glob "7.1.6"
-    joi-strict "1.1.7"
+    joi-strict "1.1.8"
     js-yaml "3.13.1"
     lodash.difference "4.5.0"
     lodash.get "4.4.2"
@@ -5432,13 +5439,13 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
-node-tdd@2.5.18:
-  version "2.5.18"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.18.tgz#b9d06830895c7346cdc3b16652477d1d7afa3e07"
-  integrity sha512-wGqh165nwO4yz2VaOTuaqcx7tfkogz9h0upThk0NlN8ogUa2QHf3VVdH/s20V5jFKQNc+FSvNpnW3X3oo1sKYQ==
+node-tdd@2.5.19:
+  version "2.5.19"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.19.tgz#7cafc2e895e1a41afa48015a2f870f0dc714d340"
+  integrity sha512-u2hpfyMyvx0uGUVrPi6cqo31OCs/IcBiLfOx1TJpSHf+1zyp/HYKSAuvr79m6+IGChdcgT02f8kpaZRS+mUhCw==
   dependencies:
     callsites "3.1.0"
-    joi-strict "1.1.7"
+    joi-strict "1.1.8"
     lodash.get "4.4.2"
     nock "11.7.0"
     smart-fs "1.11.0"
