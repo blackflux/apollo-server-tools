@@ -4434,6 +4434,13 @@ joi-strict@1.1.10:
   dependencies:
     "@hapi/joi" "16.1.8"
 
+joi-strict@1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.1.11.tgz#4a08c14772f10f1ef06ec1a9dbabc1b8aedc5753"
+  integrity sha512-CxN0zLwlKPVjWFFDTvAv8rdmjdsFhAkWNCM1kYMqVwG3zCWG+akyO6bufMA4ovKsm9IYaOklTGi+OKLj3mHg5w==
+  dependencies:
+    "@hapi/joi" "16.1.8"
+
 js-gardener@2.0.125:
   version "2.0.125"
   resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.125.tgz#589571c1f41215a4c995c7125f079841c960b929"
@@ -5532,16 +5539,16 @@ node-preload@^0.2.0:
   dependencies:
     process-on-spawn "^1.0.0"
 
-node-tdd@2.5.25:
-  version "2.5.25"
-  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.25.tgz#ed6517828b9d7e7f5c227da0322bac69307c333c"
-  integrity sha512-teeJqSlzkHCHLeV91j4JP2VLd4jjUfjQDWCsZPlIrA8MH2WL/RASNQekpcRMe6vSFigUs94PGMy5SVH6cUaBJQ==
+node-tdd@2.5.27:
+  version "2.5.27"
+  resolved "https://registry.yarnpkg.com/node-tdd/-/node-tdd-2.5.27.tgz#fb7848ca79c70382c7801c4d9f5e8d54207c57c1"
+  integrity sha512-QRzfFsZ4UJXqKz+vFxcvzZquAe1x6GobsZISUF4wvyumd4Jg1sBn8YpPLHq0pMrlCdu76OQs0s8635o+3bU7Tw==
   dependencies:
     callsites "3.1.0"
-    joi-strict "1.1.10"
+    joi-strict "1.1.11"
     lodash.get "4.4.2"
     nock "11.7.0"
-    smart-fs "1.11.5"
+    smart-fs "1.11.7"
     timekeeper "2.2.0"
     tmp "0.1.0"
 
