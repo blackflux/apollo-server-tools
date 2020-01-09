@@ -110,7 +110,7 @@
     "graphql": "^14.5.3"
   },
   "dependencies": {
-    "graphql-extensions": "0.10.9",
+    "graphql-extensions": "0.10.10",
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
