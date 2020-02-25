@@ -15,6 +15,7 @@ describe('Testing comment-deprecation-extension.js', {
   beforeEach(async () => {
     serverInfo = await new ApolloServer({
       typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n'),
+      // todo: in test check if this is executed (!)
       resolvers: { Query: { User: () => ({ id: '1', name: 'Name' }) } },
       extensions: [() => new CommentDeprecationExtension({
         sunsetInDays: 2 * 365,
