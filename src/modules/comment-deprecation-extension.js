@@ -46,8 +46,7 @@ class CommentDeprecationExtension extends GraphQLExtension {
       const headers = Object.fromEntries(graphqlResponse.http.headers.entries());
       updateDeprecationHeaders(headers, {
         deprecationDate: this.deprecationDate,
-        // todo: update dep so this can take this.sunsetDate (!)
-        sunsetDurationInDays: this.sunsetInDays
+        sunsetDate: this.sunsetDate
       });
       Object.entries(headers)
         .forEach(([k, v]) => graphqlResponse.http.headers.set(k, v));
