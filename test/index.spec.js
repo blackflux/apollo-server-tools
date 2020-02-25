@@ -6,7 +6,7 @@ describe('Testing index.js', () => {
   it('Testing Exports', () => {
     expect(Object.keys(index)).to.deep.equal([
       'parseInfo',
-      'getDeprecationDate',
+      'getDeprecationMeta',
       'getDeprecationDetails',
       'CommentDeprecationExtension',
       'generateDocs',

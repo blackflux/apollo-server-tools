@@ -9,7 +9,11 @@ const CommentDeprecationExtension = require('../../src/modules/comment-deprecati
 const versions = require('./versions');
 
 describe('Testing comment-deprecation-extension.js', {
-  envVars: { FORCE_SUNSET: '0' }
+  envVars: {
+    FORCE_SUNSET: '0',
+    VERSION: '0.0.1'
+  },
+  timestamp: 1082670157
 }, () => {
   let serverInfo;
   let requestHelper;
@@ -26,6 +30,7 @@ describe('Testing comment-deprecation-extension.js', {
         }
       },
       extensions: [() => new CommentDeprecationExtension({
+        apiVersionHeader: 'x-api-version',
         sunsetDurationInDays: 2 * 365,
         forceSunset: process.env.FORCE_SUNSET === '1',
         versions
@@ -38,10 +43,14 @@ describe('Testing comment-deprecation-extension.js', {
         uri: `${serverInfo.url}graphql`,
         json: true,
         body: { query },
+        headers: {
+          'x-api-version': process.env.VERSION
+        },
         resolveWithFullResponse: true,
         simple: false
       });
-      expect(resolverExecuted).to.equal(resolverExecutedExpect);
+      expect(resolverExecuted, 'Endpoint Access / Not Accessed')
+        .to.equal(resolverExecutedExpect);
       return r;
     };
   });
@@ -88,7 +97,18 @@ describe('Testing comment-deprecation-extension.js', {
         false
       );
       expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
-      expect(r.body.errors[0].message).to.equal('Functionality has been sunset as of "Sun, 01 Dec 2002 00:00:00 GMT".');
+      expect(r.body.errors[0].message).to.equal('Functionality sunset since "Sun, 01 Dec 2002 00:00:00 GMT".');
+    });
+  });
+
+  describe('Testing Unsupported Functionality', { envVars: { '^VERSION': '1.0.0' } }, () => {
+    it('Testing Force Sunset Throws Error', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
+      expect(r.body.errors[0].message).to.equal('Functionality unsupported for version "1.0.0".');
     });
   });
 });

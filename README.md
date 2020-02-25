@@ -82,10 +82,11 @@ syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
 
 Parse info object to easily access relevant information.
 
-### getDeprecationDate({ versions, schema, ast, fragments = {}, vars = {} })
+### getDeprecationMeta({ versions, sunsetDurationInDays, schema, ast, fragments = {}, vars = {} })
 
-Fetch nearest deprecation date that is accessed by the query as date object.
-Returns `null` when there is no deprecated access. Expects custom deprecation syntax, see below.
+Parse out relevant deprecation information for all accessed functionality.
+
+Expects custom deprecation syntax, see below.
 
 The `versions` parameter is expected to be an object mapping versions to their respective introduction [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 

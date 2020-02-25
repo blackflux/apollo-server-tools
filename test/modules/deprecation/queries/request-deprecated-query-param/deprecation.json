@@ -1,1 +1,7 @@
-"Sat, 01 Jan 2005 00:00:00 GMT"
+{
+  "isDeprecated": true,
+  "deprecationDate": "2005-01-01T00:00:00.000Z",
+  "sunsetDate": "2005-01-02T00:00:00.000Z",
+  "isSunset": true,
+  "minVersionAccessed": "3.2.0"
+}

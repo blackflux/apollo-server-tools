@@ -6,7 +6,7 @@ const { describe } = require('node-tdd');
 const { parse, validate } = require('graphql');
 const { ApolloServer } = require('apollo-server');
 const { getDirectories } = require('../util');
-const { getDeprecationDetails, getDeprecationDate } = require('../../src/modules/deprecation');
+const { getDeprecationDetails, getDeprecationMeta } = require('../../src/modules/deprecation');
 const versions = require('./versions');
 
 describe('Testing deprecation.js', () => {
@@ -23,21 +23,22 @@ describe('Testing deprecation.js', () => {
       it(`Testing ${d}`, () => {
         const ast = parse(fs.smartRead(path.join(root, d, 'query.graphql')).join('\n'));
         const expectedResult = fs.smartRead(path.join(root, d, 'result.json'));
-        const expectedDeprecationDate = fs.smartRead(path.join(root, d, 'deprecation.json'));
+        const expectedDeprecationMeta = fs.smartRead(path.join(root, d, 'deprecation.json'));
         expect(validate(schema, ast)).to.deep.equal([]);
 
         const result = getDeprecationDetails({ schema, ast }).map((e) => ({
           name: e.name,
           description: e.description
         }));
-        const deprecationDate = getDeprecationDate({
+        const deprecationMeta = getDeprecationMeta({
           versions: Object.fromEntries(Object.entries(versions).map(([k, v]) => [k, new Date(v)])),
+          sunsetDurationInDays: 1,
           schema,
           ast
         });
         expect(result).to.deep.equal(expectedResult);
-        expect(deprecationDate === null ? null : deprecationDate.toUTCString())
-          .to.equal(expectedDeprecationDate);
+        expect(JSON.parse(JSON.stringify(deprecationMeta)))
+          .to.deep.equal(expectedDeprecationMeta);
       });
     });
   });

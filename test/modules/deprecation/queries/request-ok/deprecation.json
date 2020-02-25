@@ -1,1 +1,7 @@
-null
+{
+  "isDeprecated": false,
+  "deprecationDate": null,
+  "sunsetDate": null,
+  "isSunset": false,
+  "minVersionAccessed": null
+}
