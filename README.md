@@ -93,9 +93,11 @@ Can e.g. be used to return a `Sunset` header.
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 
-### class CommentDeprecationExtension(sunsetInDays = 2 * 365)
+### class CommentDeprecationExtension({ sunsetInDays: Integer, forceSunset: Boolean })
 
 Graphql Extension that injects appropriate headers into responses.
+
+If forceSunset is set to true and sunset functionality is accessed, an error is thrown.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
