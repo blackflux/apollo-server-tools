@@ -1,3 +1,4 @@
+const assert = require('assert');
 const get = require('lodash.get');
 const {
   getNamedType,
@@ -7,7 +8,7 @@ const {
 } = require('graphql');
 const parseInfo = require('./parse-info');
 
-const isDeprecated = (fd) => fd && /\[deprecated] \d{4}-\d{2}-\d{2} /.test(fd.description);
+const isDeprecated = (fd) => fd && /\[deprecated] \d+\.\d+\.\d+ /.test(fd.description);
 module.exports.isDeprecated = isDeprecated;
 
 const getDeprecationDetails = ({
@@ -52,19 +53,21 @@ const getDeprecationDetails = ({
 module.exports.getDeprecationDetails = getDeprecationDetails;
 
 const getDeprecationDate = ({
-  schema, ast, fragments = {}, vars = {}
+  versions, schema, ast, fragments = {}, vars = {}
 }) => {
   let result = null;
   getDeprecationDetails({
     schema, ast, fragments, vars
   })
     .forEach((d) => {
-      const date = new Date(d.description.split(' ', 2)[1]);
+      const version = d.description.split(' ', 2)[1];
+      const date = versions[version];
+      assert(date instanceof Date, `Unknown version specified "${version}"`);
       // compute earliest deprecation date
       if (result === null || date < result) {
         result = date;
       }
     });
-  return result;
+  return result === null ? null : new Date(result);
 };
 module.exports.getDeprecationDate = getDeprecationDate;

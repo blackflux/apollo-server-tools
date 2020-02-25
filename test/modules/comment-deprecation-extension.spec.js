@@ -6,6 +6,7 @@ const get = require('lodash.get');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
+const versions = require('./versions');
 
 describe('Testing comment-deprecation-extension.js', {
   envVars: { FORCE_SUNSET: '0' }
@@ -25,8 +26,9 @@ describe('Testing comment-deprecation-extension.js', {
         }
       },
       extensions: [() => new CommentDeprecationExtension({
-        sunsetInDays: 2 * 365,
-        forceSunset: process.env.FORCE_SUNSET === '1'
+        sunsetDurationInDays: 2 * 365,
+        forceSunset: process.env.FORCE_SUNSET === '1',
+        versions
       })]
     }).listen();
     requestHelper = async (query, resolverExecutedExpect) => {

@@ -1,6 +1,6 @@
 [
   {
-    "description": "[deprecated] 2009-03-22 Please use deleteTweet instead",
+    "description": "[deprecated] 3.4.0 Please use deleteTweet instead",
     "name": "removeTweet"
   }
 ]

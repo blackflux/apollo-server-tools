@@ -7,6 +7,7 @@ const { parse, validate } = require('graphql');
 const { ApolloServer } = require('apollo-server');
 const { getDirectories } = require('../util');
 const { getDeprecationDetails, getDeprecationDate } = require('../../src/modules/deprecation');
+const versions = require('./versions');
 
 describe('Testing deprecation.js', () => {
   let schema;
@@ -29,7 +30,11 @@ describe('Testing deprecation.js', () => {
           name: e.name,
           description: e.description
         }));
-        const deprecationDate = getDeprecationDate({ schema, ast });
+        const deprecationDate = getDeprecationDate({
+          versions: Object.fromEntries(Object.entries(versions).map(([k, v]) => [k, new Date(v)])),
+          schema,
+          ast
+        });
         expect(result).to.deep.equal(expectedResult);
         expect(deprecationDate === null ? null : deprecationDate.toUTCString())
           .to.equal(expectedDeprecationDate);

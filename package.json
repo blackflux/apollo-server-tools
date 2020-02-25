@@ -111,6 +111,7 @@
   },
   "dependencies": {
     "graphql-extensions": "0.10.10",
+    "joi-strict": "1.2.0",
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",

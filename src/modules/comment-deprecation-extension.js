@@ -1,16 +1,27 @@
 const assert = require('assert');
 const { GraphQLExtension } = require('graphql-extensions');
 const { GraphQLError } = require('graphql');
+const Joi = require('joi-strict');
 const { updateDeprecationHeaders } = require('painless-version');
 const { getDeprecationDate } = require('./deprecation');
 
+const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
+
 class CommentDeprecationExtension extends GraphQLExtension {
-  constructor({ sunsetInDays, forceSunset }) {
+  constructor(opts) {
     super();
-    assert(Number.isInteger(sunsetInDays) && sunsetInDays >= 0);
-    assert(typeof forceSunset === 'boolean');
-    this.sunsetInDays = sunsetInDays;
-    this.forceSunset = forceSunset;
+    Joi.assert(opts, Joi.object().keys({
+      forceSunset: Joi.boolean(),
+      sunsetDurationInDays: Joi.number().integer().min(0),
+      versions: Joi.object().pattern(
+        Joi.string().pattern(VERSION_REGEX),
+        Joi.date().iso()
+      )
+    }));
+    this.forceSunset = opts.forceSunset;
+    this.sunsetDurationInDays = opts.sunsetDurationInDays;
+    this.versions = Object.fromEntries(Object.entries(opts.versions).map(([k, v]) => [k, new Date(v)]));
+
     this.deprecationDate = undefined;
     this.sunsetDate = undefined;
     this.isDeprecated = false;
@@ -20,12 +31,13 @@ class CommentDeprecationExtension extends GraphQLExtension {
   executionDidStart({ executionArgs }) {
     assert(this.deprecationDate === undefined);
     this.deprecationDate = getDeprecationDate({
+      versions: this.versions,
       schema: executionArgs.schema,
       ast: executionArgs.document
     });
     this.isDeprecated = ![null, undefined].includes(this.deprecationDate);
     if (this.isDeprecated) {
-      this.sunsetDate = new Date(this.deprecationDate.getTime() + 1000 * 60 * 60 * 24 * this.sunsetInDays);
+      this.sunsetDate = new Date(this.deprecationDate.getTime() + 1000 * 60 * 60 * 24 * this.sunsetDurationInDays);
       this.isSunset = this.sunsetDate < new Date();
     }
   }
