@@ -7,14 +7,19 @@ const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
 
-describe('Testing comment-deprecation-extension.js', () => {
+describe('Testing comment-deprecation-extension.js', {
+  envVars: { FORCE_SUNSET: '0' }
+}, () => {
   let serverInfo;
   let requestHelper;
-  before(async () => {
+  beforeEach(async () => {
     serverInfo = await new ApolloServer({
       typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n'),
       resolvers: { Query: { User: () => ({ id: '1', name: 'Name' }) } },
-      extensions: [() => new CommentDeprecationExtension()]
+      extensions: [() => new CommentDeprecationExtension({
+        sunsetInDays: 2 * 365,
+        forceSunset: process.env.FORCE_SUNSET === '1'
+      })]
     }).listen();
     requestHelper = (query) => request({
       method: 'post',
@@ -26,7 +31,7 @@ describe('Testing comment-deprecation-extension.js', () => {
     });
   });
 
-  after(async () => {
+  afterEach(async () => {
     await serverInfo.server.close();
   });
 
@@ -59,5 +64,16 @@ describe('Testing comment-deprecation-extension.js', () => {
     expect(get(r, 'body.errors[0].message')).to.include('Cannot query field "Unknown" on type "Query".');
     expect(r.headers.deprecation).to.equal(undefined);
     expect(r.headers.sunset).to.equal(undefined);
+  });
+
+  describe('Testing Force Sunset', { envVars: { '^FORCE_SUNSET': '1' } }, () => {
+    it('Testing Force Sunset Throws Error', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name }'
+        + 'query User { User(id: "1") { ...UserParts } }'
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
+      expect(r.body.errors[0].message).to.equal('Functionality has been sunset as of "Sun, 01 Dec 2002 00:00:00 GMT".');
+    });
   });
 });
