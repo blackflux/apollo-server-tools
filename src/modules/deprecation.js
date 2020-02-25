@@ -62,7 +62,8 @@ const getDeprecationDate = ({
     .forEach((d) => {
       const version = d.description.split(' ', 2)[1];
       const date = versions[version];
-      assert(date instanceof Date, `Unknown version specified "${version}"`);
+      assert(date !== undefined, `Unknown version specified "${version}"`);
+      assert(date instanceof Date, `Invalid version format specified "${version}"`);
       // compute earliest deprecation date
       if (result === null || date < result) {
         result = date;
