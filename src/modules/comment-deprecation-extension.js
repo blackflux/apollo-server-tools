@@ -31,6 +31,7 @@ class CommentDeprecationExtension extends GraphQLExtension {
   }
 
   willResolveField() {
+    // can not throw in executionDidStart(), so doing it here
     if (this.forceSunset === true && this.isSunset === true) {
       throw new GraphQLError(
         `Functionality has been sunset as of "${this.sunsetDate.toUTCString()}".`,
