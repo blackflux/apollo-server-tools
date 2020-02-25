@@ -4,8 +4,7 @@ const { GraphQLError } = require('graphql');
 const Joi = require('joi-strict');
 const { updateDeprecationHeaders } = require('painless-version');
 const { getDeprecationDate } = require('./deprecation');
-
-const VERSION_REGEX = /^\d+\.\d+\.\d+$/;
+const { VERSION_REGEX } = require('../resources/regex');
 
 class CommentDeprecationExtension extends GraphQLExtension {
   constructor(opts) {

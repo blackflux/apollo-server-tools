@@ -7,8 +7,9 @@ const {
   visitWithTypeInfo
 } = require('graphql');
 const parseInfo = require('./parse-info');
+const { DEPRECATED_REGEX } = require('../resources/regex');
 
-const isDeprecated = (fd) => fd && /\[deprecated] \d+\.\d+\.\d+ /.test(fd.description);
+const isDeprecated = (fd) => fd && DEPRECATED_REGEX.test(fd.description);
 module.exports.isDeprecated = isDeprecated;
 
 const getDeprecationDetails = ({
