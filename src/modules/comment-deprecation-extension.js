@@ -49,6 +49,13 @@ class CommentDeprecationExtension extends GraphQLExtension {
         { code: 'VERSION_HEADER_INVALID' }
       );
     }
+    if (this.versions[this.version] === undefined) {
+      throw new GraphQLError(
+        `Unknown api version "${this.version}" provided for header "${this.apiVersionHeader}".`,
+        undefined, undefined, undefined, undefined, undefined,
+        { code: 'VERSION_HEADER_INVALID' }
+      );
+    }
     const {
       isDeprecated,
       sunsetDate,

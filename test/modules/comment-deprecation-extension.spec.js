@@ -122,4 +122,15 @@ describe('Testing comment-deprecation-extension.js', {
       expect(r.body.errors[0].message).to.equal('Missing or invalid api version header "x-api-version".');
     });
   });
+
+  describe('Unknown Api Version', { envVars: { '^VERSION': '0.0.5' } }, () => {
+    it('Executing Test', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('VERSION_HEADER_INVALID');
+      expect(r.body.errors[0].message).to.equal('Unknown api version "0.0.5" provided for header "x-api-version".');
+    });
+  });
 });
