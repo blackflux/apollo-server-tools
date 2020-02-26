@@ -1,5 +1,5 @@
 const { GraphQLExtension } = require('graphql-extensions');
-const { GraphQLError } = require('graphql');
+const { ApolloError } = require('apollo-server-errors');
 const Joi = require('joi-strict');
 const pv = require('painless-version');
 const { getDeprecationMeta } = require('./deprecation');
@@ -43,17 +43,15 @@ class CommentDeprecationExtension extends GraphQLExtension {
   // can not throw in executionDidStart(), so doing it here
   willResolveField() {
     if (!VERSION_REGEX.test(String(this.version))) {
-      throw new GraphQLError(
+      throw new ApolloError(
         `Missing or invalid api version header "${this.apiVersionHeader}".`,
-        undefined, undefined, undefined, undefined, undefined,
-        { code: 'VERSION_HEADER_INVALID' }
+        'VERSION_HEADER_INVALID'
       );
     }
     if (this.versions[this.version] === undefined) {
-      throw new GraphQLError(
+      throw new ApolloError(
         `Unknown api version "${this.version}" provided for header "${this.apiVersionHeader}".`,
-        undefined, undefined, undefined, undefined, undefined,
-        { code: 'VERSION_HEADER_INVALID' }
+        'VERSION_HEADER_INVALID'
       );
     }
     const {
@@ -63,17 +61,15 @@ class CommentDeprecationExtension extends GraphQLExtension {
       minVersionAccessed
     } = this.deprecatedMeta;
     if (isDeprecated === true && pv.test(`${minVersionAccessed} <= ${this.version}`)) {
-      throw new GraphQLError(
+      throw new ApolloError(
         `Functionality unsupported for version "${this.version}".`,
-        undefined, undefined, undefined, undefined, undefined,
-        { code: 'DEPRECATION_ERROR' }
+        'DEPRECATION_ERROR'
       );
     }
     if (this.forceSunset === true && isSunset === true) {
-      throw new GraphQLError(
+      throw new ApolloError(
         `Functionality sunset since "${sunsetDate.toUTCString()}".`,
-        undefined, undefined, undefined, undefined, undefined,
-        { code: 'DEPRECATION_ERROR' }
+        'DEPRECATION_ERROR'
       );
     }
   }
