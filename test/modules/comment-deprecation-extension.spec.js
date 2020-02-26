@@ -12,8 +12,7 @@ describe('Testing comment-deprecation-extension.js', {
   envVars: {
     FORCE_SUNSET: '0',
     VERSION: '0.0.1'
-  },
-  timestamp: 1082670157
+  }
 }, () => {
   let serverInfo;
   let requestHelper;
