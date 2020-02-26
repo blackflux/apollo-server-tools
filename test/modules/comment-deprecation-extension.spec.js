@@ -6,9 +6,13 @@ const get = require('lodash.get');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
+const versions = require('./versions');
 
 describe('Testing comment-deprecation-extension.js', {
-  envVars: { FORCE_SUNSET: '0' }
+  envVars: {
+    FORCE_SUNSET: '0',
+    VERSION: '0.0.1'
+  }
 }, () => {
   let serverInfo;
   let requestHelper;
@@ -25,8 +29,10 @@ describe('Testing comment-deprecation-extension.js', {
         }
       },
       extensions: [() => new CommentDeprecationExtension({
-        sunsetInDays: 2 * 365,
-        forceSunset: process.env.FORCE_SUNSET === '1'
+        apiVersionHeader: 'x-api-version',
+        sunsetDurationInDays: 2 * 365,
+        forceSunset: process.env.FORCE_SUNSET === '1',
+        versions
       })]
     }).listen();
     requestHelper = async (query, resolverExecutedExpect) => {
@@ -36,10 +42,14 @@ describe('Testing comment-deprecation-extension.js', {
         uri: `${serverInfo.url}graphql`,
         json: true,
         body: { query },
+        headers: {
+          'x-api-version': process.env.VERSION
+        },
         resolveWithFullResponse: true,
         simple: false
       });
-      expect(resolverExecuted).to.equal(resolverExecutedExpect);
+      expect(resolverExecuted, 'Endpoint Access / Not Accessed')
+        .to.equal(resolverExecutedExpect);
       return r;
     };
   });
@@ -80,13 +90,46 @@ describe('Testing comment-deprecation-extension.js', {
   });
 
   describe('Testing Force Sunset', { envVars: { '^FORCE_SUNSET': '1' } }, () => {
-    it('Testing Force Sunset Throws Error', async () => {
+    it('Executing Test', async () => {
       const r = await requestHelper(
         'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
         false
       );
       expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
-      expect(r.body.errors[0].message).to.equal('Functionality has been sunset as of "Sun, 01 Dec 2002 00:00:00 GMT".');
+      expect(r.body.errors[0].message).to.equal('Functionality sunset since "Sun, 01 Dec 2002 00:00:00 GMT".');
+    });
+  });
+
+  describe('Testing Unsupported Functionality', { envVars: { '^VERSION': '1.0.0' } }, () => {
+    it('Executing Test', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
+      expect(r.body.errors[0].message).to.equal('Functionality unsupported for version "1.0.0".');
+    });
+  });
+
+  describe('Testing Bad Version Header', { envVars: { '^VERSION': 'invalid' } }, () => {
+    it('Executing Test', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('VERSION_HEADER_INVALID');
+      expect(r.body.errors[0].message).to.equal('Missing or invalid api version header "x-api-version".');
+    });
+  });
+
+  describe('Unknown Api Version', { envVars: { '^VERSION': '0.0.5' } }, () => {
+    it('Executing Test', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('VERSION_HEADER_INVALID');
+      expect(r.body.errors[0].message).to.equal('Unknown api version "0.0.5" provided for header "x-api-version".');
     });
   });
 });

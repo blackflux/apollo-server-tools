@@ -82,10 +82,13 @@ syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
 
 Parse info object to easily access relevant information.
 
-### getDeprecationDate({ schema, ast, fragments = {}, vars = {} })
+### getDeprecationMeta({ versions, sunsetDurationInDays, schema, ast, fragments = {}, vars = {} })
 
-Fetch nearest deprecation date that is accessed by the query as date object.
-Returns `null` when there is no deprecated access. Expects custom deprecation syntax, see below.
+Parse out relevant deprecation information for all accessed functionality.
+
+Expects custom deprecation syntax, see below.
+
+The `versions` parameter is expected to be an object mapping versions to their respective introduction [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 
 Can e.g. be used to return a `Sunset` header.
 
@@ -93,11 +96,13 @@ Can e.g. be used to return a `Sunset` header.
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 
-### class CommentDeprecationExtension({ sunsetInDays: Integer, forceSunset: Boolean })
+### class CommentDeprecationExtension({ sunsetDurationInDays: Integer, forceSunset: Boolean, versions: Object })
 
 Graphql Extension that injects appropriate headers into responses.
 
 If forceSunset is set to true and sunset functionality is accessed, an error is thrown.
+
+Versions is expected to be an object mapping versions to their creation date string as "YYYY-MM-DD".
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 

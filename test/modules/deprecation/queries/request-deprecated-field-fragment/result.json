@@ -1,6 +1,6 @@
 [
   {
-    "description": "[deprecated] 2000-12-01 Please use full_name instead",
+    "description": "[deprecated] 1.0.0 Please use full_name instead",
     "name": "name"
   }
 ]
