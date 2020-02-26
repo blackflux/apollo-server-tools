@@ -91,7 +91,7 @@ describe('Testing comment-deprecation-extension.js', {
   });
 
   describe('Testing Force Sunset', { envVars: { '^FORCE_SUNSET': '1' } }, () => {
-    it('Testing Force Sunset Throws Error', async () => {
+    it('Executing Test', async () => {
       const r = await requestHelper(
         'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
         false
@@ -102,13 +102,24 @@ describe('Testing comment-deprecation-extension.js', {
   });
 
   describe('Testing Unsupported Functionality', { envVars: { '^VERSION': '1.0.0' } }, () => {
-    it('Testing Force Sunset Throws Error', async () => {
+    it('Executing Test', async () => {
       const r = await requestHelper(
         'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
         false
       );
       expect(r.body.errors[0].extensions.code).to.equal('DEPRECATION_ERROR');
       expect(r.body.errors[0].message).to.equal('Functionality unsupported for version "1.0.0".');
+    });
+  });
+
+  describe('Testing Bad Version Header', { envVars: { '^VERSION': 'invalid' } }, () => {
+    it('Executing Test', async () => {
+      const r = await requestHelper(
+        'fragment UserParts on User { id name } query User { User(id: "1") { ...UserParts } }',
+        false
+      );
+      expect(r.body.errors[0].extensions.code).to.equal('VERSION_HEADER_INVALID');
+      expect(r.body.errors[0].message).to.equal('Missing or invalid api version header "x-api-version".');
     });
   });
 });

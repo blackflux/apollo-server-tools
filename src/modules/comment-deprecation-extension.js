@@ -40,14 +40,21 @@ class CommentDeprecationExtension extends GraphQLExtension {
     });
   }
 
+  // can not throw in executionDidStart(), so doing it here
   willResolveField() {
+    if (!VERSION_REGEX.test(String(this.version))) {
+      throw new GraphQLError(
+        `Missing or invalid api version header "${this.apiVersionHeader}".`,
+        undefined, undefined, undefined, undefined, undefined,
+        { code: 'VERSION_HEADER_INVALID' }
+      );
+    }
     const {
       isDeprecated,
       sunsetDate,
       isSunset,
       minVersionAccessed
     } = this.deprecatedMeta;
-    // can not throw in executionDidStart(), so doing it here
     if (isDeprecated === true && pv.test(`${minVersionAccessed} <= ${this.version}`)) {
       throw new GraphQLError(
         `Functionality unsupported for version "${this.version}".`,
