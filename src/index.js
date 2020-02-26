@@ -4,7 +4,7 @@ const CommentDeprecationExtension = require('./modules/comment-deprecation-exten
 const docs = require('./modules/docs');
 
 module.exports.parseInfo = parseInfo;
-module.exports.getDeprecationDate = deprecation.getDeprecationDate;
+module.exports.getDeprecationMeta = deprecation.getDeprecationMeta;
 module.exports.getDeprecationDetails = deprecation.getDeprecationDetails;
 module.exports.CommentDeprecationExtension = CommentDeprecationExtension;
 module.exports.generateDocs = docs.generateDocs;

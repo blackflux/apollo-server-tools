@@ -1,10 +1,10 @@
 [
   {
-    "description": "[deprecated] 2001-04-26 Please use separate rest api instead",
+    "description": "[deprecated] 2.0.0 Please use separate rest api instead",
     "name": "Stat"
   },
   {
-    "description": "[deprecated] 2003-05-01 Please use responses instead",
+    "description": "[deprecated] 3.0.0 Please use responses instead",
     "name": "replies"
   }
 ]

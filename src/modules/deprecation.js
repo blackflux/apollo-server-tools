@@ -1,3 +1,4 @@
+const assert = require('assert');
 const get = require('lodash.get');
 const {
   getNamedType,
@@ -5,9 +6,11 @@ const {
   visit,
   visitWithTypeInfo
 } = require('graphql');
+const pv = require('painless-version');
 const parseInfo = require('./parse-info');
+const { DEPRECATED_REGEX } = require('../resources/regex');
 
-const isDeprecated = (fd) => fd && /\[deprecated] \d{4}-\d{2}-\d{2} /.test(fd.description);
+const isDeprecated = (fd) => fd && DEPRECATED_REGEX.test(fd.description);
 module.exports.isDeprecated = isDeprecated;
 
 const getDeprecationDetails = ({
@@ -51,20 +54,39 @@ const getDeprecationDetails = ({
 };
 module.exports.getDeprecationDetails = getDeprecationDetails;
 
-const getDeprecationDate = ({
-  schema, ast, fragments = {}, vars = {}
+const getDeprecationMeta = ({
+  versions,
+  sunsetDurationInDays,
+  schema,
+  ast,
+  fragments = {},
+  vars = {}
 }) => {
-  let result = null;
+  const result = {
+    isDeprecated: false,
+    deprecationDate: null,
+    sunsetDate: null,
+    isSunset: false,
+    minVersionAccessed: null
+  };
   getDeprecationDetails({
     schema, ast, fragments, vars
   })
     .forEach((d) => {
-      const date = new Date(d.description.split(' ', 2)[1]);
-      // compute earliest deprecation date
-      if (result === null || date < result) {
-        result = date;
+      const version = d.description.split(' ', 2)[1];
+      const deprecationDate = versions[version];
+      assert(deprecationDate !== undefined, `Unknown version specified "${version}"`);
+      assert(deprecationDate instanceof Date, `Invalid version format specified "${version}"`);
+      if (result.deprecationDate === null || deprecationDate < result.deprecationDate) {
+        result.isDeprecated = true;
+        result.deprecationDate = deprecationDate;
+        result.sunsetDate = new Date(deprecationDate.getTime() + 1000 * 60 * 60 * 24 * sunsetDurationInDays);
+        result.isSunset = result.sunsetDate < new Date();
+      }
+      if (result.minVersionAccessed === null || pv.test(`${version} < ${result.minVersionAccessed}`)) {
+        result.minVersionAccessed = version;
       }
     });
   return result;
 };
-module.exports.getDeprecationDate = getDeprecationDate;
+module.exports.getDeprecationMeta = getDeprecationMeta;

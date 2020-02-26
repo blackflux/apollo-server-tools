@@ -1,40 +1,77 @@
-const assert = require('assert');
 const { GraphQLExtension } = require('graphql-extensions');
 const { GraphQLError } = require('graphql');
-const { updateDeprecationHeaders } = require('painless-version');
-const { getDeprecationDate } = require('./deprecation');
+const Joi = require('joi-strict');
+const pv = require('painless-version');
+const { getDeprecationMeta } = require('./deprecation');
+const { VERSION_REGEX } = require('../resources/regex');
 
 class CommentDeprecationExtension extends GraphQLExtension {
-  constructor({ sunsetInDays, forceSunset }) {
+  constructor(opts) {
     super();
-    assert(Number.isInteger(sunsetInDays) && sunsetInDays >= 0);
-    assert(typeof forceSunset === 'boolean');
-    this.sunsetInDays = sunsetInDays;
-    this.forceSunset = forceSunset;
-    this.deprecationDate = undefined;
-    this.sunsetDate = undefined;
-    this.isDeprecated = false;
-    this.isSunset = false;
+    Joi.assert(opts, Joi.object().keys({
+      apiVersionHeader: Joi.string(),
+      forceSunset: Joi.boolean(),
+      sunsetDurationInDays: Joi.number().integer().min(0),
+      versions: Joi.object().pattern(
+        Joi.string().pattern(VERSION_REGEX),
+        Joi.date().iso()
+      )
+    }));
+    this.apiVersionHeader = opts.apiVersionHeader.toLowerCase();
+    this.forceSunset = opts.forceSunset;
+    this.sunsetDurationInDays = opts.sunsetDurationInDays;
+    this.versions = Object.fromEntries(Object.entries(opts.versions).map(([k, v]) => [k, new Date(v)]));
+
+    this.version = undefined;
+    this.deprecatedMeta = {};
+  }
+
+  requestDidStart({ request }) {
+    this.version = request.headers.get(this.apiVersionHeader);
   }
 
   executionDidStart({ executionArgs }) {
-    assert(this.deprecationDate === undefined);
-    this.deprecationDate = getDeprecationDate({
+    this.deprecatedMeta = getDeprecationMeta({
+      version: this.version,
+      versions: this.versions,
+      sunsetDurationInDays: this.sunsetDurationInDays,
       schema: executionArgs.schema,
       ast: executionArgs.document
     });
-    this.isDeprecated = ![null, undefined].includes(this.deprecationDate);
-    if (this.isDeprecated) {
-      this.sunsetDate = new Date(this.deprecationDate.getTime() + 1000 * 60 * 60 * 24 * this.sunsetInDays);
-      this.isSunset = this.sunsetDate < new Date();
-    }
   }
 
+  // can not throw in executionDidStart(), so doing it here
   willResolveField() {
-    // can not throw in executionDidStart(), so doing it here
-    if (this.forceSunset === true && this.isSunset === true) {
+    if (!VERSION_REGEX.test(String(this.version))) {
       throw new GraphQLError(
-        `Functionality has been sunset as of "${this.sunsetDate.toUTCString()}".`,
+        `Missing or invalid api version header "${this.apiVersionHeader}".`,
+        undefined, undefined, undefined, undefined, undefined,
+        { code: 'VERSION_HEADER_INVALID' }
+      );
+    }
+    if (this.versions[this.version] === undefined) {
+      throw new GraphQLError(
+        `Unknown api version "${this.version}" provided for header "${this.apiVersionHeader}".`,
+        undefined, undefined, undefined, undefined, undefined,
+        { code: 'VERSION_HEADER_INVALID' }
+      );
+    }
+    const {
+      isDeprecated,
+      sunsetDate,
+      isSunset,
+      minVersionAccessed
+    } = this.deprecatedMeta;
+    if (isDeprecated === true && pv.test(`${minVersionAccessed} <= ${this.version}`)) {
+      throw new GraphQLError(
+        `Functionality unsupported for version "${this.version}".`,
+        undefined, undefined, undefined, undefined, undefined,
+        { code: 'DEPRECATION_ERROR' }
+      );
+    }
+    if (this.forceSunset === true && isSunset === true) {
+      throw new GraphQLError(
+        `Functionality sunset since "${sunsetDate.toUTCString()}".`,
         undefined, undefined, undefined, undefined, undefined,
         { code: 'DEPRECATION_ERROR' }
       );
@@ -43,12 +80,10 @@ class CommentDeprecationExtension extends GraphQLExtension {
 
   willSendResponse(kwargs) {
     const { graphqlResponse } = kwargs;
-    if (this.isDeprecated) {
+    const { isDeprecated, deprecationDate, sunsetDate } = this.deprecatedMeta;
+    if (isDeprecated === true) {
       const headers = Object.fromEntries(graphqlResponse.http.headers.entries());
-      updateDeprecationHeaders(headers, {
-        deprecationDate: this.deprecationDate,
-        sunsetDate: this.sunsetDate
-      });
+      pv.updateDeprecationHeaders(headers, { deprecationDate, sunsetDate });
       Object.entries(headers)
         .forEach(([k, v]) => graphqlResponse.http.headers.set(k, v));
     }

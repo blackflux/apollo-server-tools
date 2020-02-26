@@ -1,6 +1,6 @@
 [
   {
-    "description": "[deprecated] 2005-01-01 Please use id instead",
+    "description": "[deprecated] 3.2.0 Please use id instead",
     "name": "longId"
   }
 ]

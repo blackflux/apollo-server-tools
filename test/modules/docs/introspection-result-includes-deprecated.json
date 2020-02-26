@@ -43,7 +43,7 @@
             },
             {
               "name": "GetTweet",
-              "description": "[deprecated] 2004-06-27 Please use Tweet instead",
+              "description": "[deprecated] 3.1.0 Please use Tweet instead",
               "args": [
                 {
                   "name": "id",
@@ -157,7 +157,7 @@
                 },
                 {
                   "name": "longId",
-                  "description": "[deprecated] 2005-01-01 Please use id instead",
+                  "description": "[deprecated] 3.2.0 Please use id instead",
                   "type": {
                     "kind": "SCALAR",
                     "name": "ID",
@@ -395,7 +395,7 @@
             },
             {
               "name": "name",
-              "description": "[deprecated] 2000-12-01 Please use full_name instead",
+              "description": "[deprecated] 1.0.0 Please use full_name instead",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -433,7 +433,7 @@
                 },
                 {
                   "name": "limit",
-                  "description": "[deprecated] 2011-04-25 Please use cursor instead",
+                  "description": "[deprecated] 4.0.0 Please use cursor instead",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -491,7 +491,7 @@
         {
           "kind": "OBJECT",
           "name": "Stat",
-          "description": "[deprecated] 2001-04-26 Please use separate rest api instead",
+          "description": "[deprecated] 2.0.0 Please use separate rest api instead",
           "fields": [
             {
               "name": "views",
@@ -543,7 +543,7 @@
             },
             {
               "name": "replies",
-              "description": "[deprecated] 2003-05-01 Please use responses instead",
+              "description": "[deprecated] 3.0.0 Please use responses instead",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -650,7 +650,7 @@
                 },
                 {
                   "name": "data",
-                  "description": "[deprecated] 2006-12-28 Please use body instead",
+                  "description": "[deprecated] 3.3.0 Please use body instead",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -696,7 +696,7 @@
             },
             {
               "name": "removeTweet",
-              "description": "[deprecated] 2009-03-22 Please use deleteTweet instead",
+              "description": "[deprecated] 3.4.0 Please use deleteTweet instead",
               "args": [
                 {
                   "name": "id",
