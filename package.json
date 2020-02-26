@@ -110,6 +110,7 @@
     "graphql": "^14.5.3"
   },
   "dependencies": {
+    "apollo-server-errors": "2.3.4",
     "graphql-extensions": "0.10.10",
     "joi-strict": "1.2.0",
     "json-stable-stringify": "1.0.1",
