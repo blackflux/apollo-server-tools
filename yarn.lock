@@ -2647,13 +2647,13 @@ eslint-plugin-import@2.20.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-json@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-json/-/eslint-plugin-json-2.1.0.tgz#2829174f58148e229227c479c402f2875be04935"
-  integrity sha512-Qxy3JQVRb/Qh1RdJsg+LXhMLPGp8rTiEktpgKZPMOwJTTXe56zLCrazfdPZIDctETVbR/YFk0y1dSsVcKXu6Jg==
+eslint-plugin-json@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-json/-/eslint-plugin-json-2.1.1.tgz#7b9c4da2121f6f48d44efceb9a99ac0d4d12b299"
+  integrity sha512-Ktsab8ij33V2KFLhh4alC1FYztdmbV32DeMZYYUCZm4kKLW1s4DrleKKgtbAHSJsmshCK5QGOZtfyc2r3jCRsg==
   dependencies:
     lodash "^4.17.15"
-    vscode-json-languageservice "^3.4.12"
+    vscode-json-languageservice "^3.5.1"
 
 eslint-plugin-markdown@1.0.2:
   version "1.0.2"
@@ -5940,6 +5940,11 @@ object-scan@11.0.1:
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-11.0.1.tgz#587aaec7eba4a01a7112dc81e5a567d22b1115b4"
   integrity sha512-pJ853I6dxeAyYLsMhMrE6zMrauux5EmcBz7JJeR24T5VFBpDd2fKI8N2zBXX0zolHV2z+TsQglRY1IaC/l46/w==
 
+object-scan@11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-11.0.2.tgz#cb9e0b4ccb8b4800994533409377dcb4c4e2e6fc"
+  integrity sha512-w5g1d+4qSkryOhNucAy+SI0DQUGC5HfsCphdbraQ2LKDbtZj5e9J+nMpiK30tSGVgE261R6P6yxUf2tvwi4UEg==
+
 object-treeify@1.1.23:
   version "1.1.23"
   resolved "https://registry.yarnpkg.com/object-treeify/-/object-treeify-1.1.23.tgz#643abd116f1ba371a937beef2c83cff7ec9c97be"
@@ -7475,6 +7480,20 @@ smart-fs@1.11.8:
     xml-js "1.6.11"
     yaml-boost "1.9.20"
 
+smart-fs@1.11.9:
+  version "1.11.9"
+  resolved "https://registry.yarnpkg.com/smart-fs/-/smart-fs-1.11.9.tgz#5a685e47c79edfb9cee69424da0b16ba89752a22"
+  integrity sha512-2JJZSz6TjPoLfuT+Ko56+lUTpIlrXz9GbdQBjw7mNUJ+/v/FBRFyMGANijQeJ+ZtpyW/zcBrkxnQNvDo+cuvaQ==
+  dependencies:
+    fs-extra "8.1.0"
+    js-yaml "3.13.1"
+    json-stringify-pretty-compact "2.0.0"
+    lodash.clonedeep "4.5.0"
+    lodash.isequal "4.5.0"
+    object-align "1.0.11"
+    xml-js "1.6.11"
+    yaml-boost "1.9.20"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -8515,7 +8534,7 @@ vfile@^2.0.0:
     unist-util-stringify-position "^1.0.0"
     vfile-message "^1.0.0"
 
-vscode-json-languageservice@^3.4.12:
+vscode-json-languageservice@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-3.5.1.tgz#75779d466107cbc8c4cc9828df100df71c1870f8"
   integrity sha512-F8jPqcAC1mbQOMKvGYS4dGEw9JCZxVEi7tc5ASZLfcfwKq2URZKB4fOtdy1GEsTLsrW11tVrBjEPntpXzqp/NA==
