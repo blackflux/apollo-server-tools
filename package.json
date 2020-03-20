@@ -27,7 +27,7 @@
     "eslint-plugin-mocha": "6.3.0",
     "graphql": "14.6.0",
     "js-gardener": "2.0.142",
-    "node-tdd": "2.10.2",
+    "node-tdd": "2.10.3",
     "nyc": "15.0.0",
     "request": "2.88.2",
     "request-promise": "4.2.5",
