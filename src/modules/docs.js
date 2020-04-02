@@ -3,7 +3,7 @@ const get = require('lodash.get');
 const objectScan = require('object-scan');
 const stringify = require('json-stable-stringify');
 const { graphqlSync } = require('graphql');
-const { introspectionQuery } = require('graphql/utilities');
+const { getIntrospectionQuery } = require('graphql/utilities');
 const { isDeprecated } = require('./deprecation');
 
 const removeDeprecated = (docsContent) => objectScan(['**.{fields,args,types}[*]'], {
@@ -13,7 +13,7 @@ const removeDeprecated = (docsContent) => objectScan(['**.{fields,args,types}[*]
   .forEach((k) => get(docsContent, k.slice(0, -1)).splice(k.slice(-1)[0], 1));
 
 const generateDocs = (schema, stripDeprecated = true) => {
-  const result = JSON.parse(JSON.stringify(graphqlSync(schema, introspectionQuery)));
+  const result = JSON.parse(JSON.stringify(graphqlSync(schema, getIntrospectionQuery())));
   if (stripDeprecated === true) {
     removeDeprecated(result);
   }
