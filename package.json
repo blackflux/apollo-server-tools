@@ -27,8 +27,8 @@
     "eslint-plugin-mocha": "6.3.0",
     "graphql": "15.0.0",
     "js-gardener": "2.0.148",
-    "node-tdd": "2.10.3",
-    "nyc": "15.0.0",
+    "node-tdd": "2.10.4",
+    "nyc": "15.0.1",
     "request": "2.88.2",
     "request-promise": "4.2.5",
     "semantic-release": "17.0.4"
@@ -116,7 +116,7 @@
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "object-scan": "11.0.3",
+    "object-scan": "11.1.1",
     "painless-version": "1.2.2",
     "smart-fs": "1.11.11"
   }
