@@ -1654,10 +1654,10 @@ chai@4.2.0:
     pathval "^1.1.0"
     type-detect "^4.0.5"
 
-chalk@3.0.0, chalk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
-  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+chalk@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.0.0.tgz#6e98081ed2d17faab615eb52ac66ec1fe6209e72"
+  integrity sha512-N9oWFcegS0sFr9oh1oz2d7Npos6vNoWW9HvtCg5N1KRFpUhaAhvTv5Y58g880fZaEYSNm3qDz8SU1UrGvp+n7A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -1681,6 +1681,14 @@ chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.2, chalk@^2.4.0, chalk@^2.4
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
+
+chalk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
+  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
 
 character-entities-legacy@^1.0.0:
   version "1.1.4"
@@ -4525,21 +4533,28 @@ joi-strict@1.2.1:
   dependencies:
     "@hapi/joi" "17.1.1"
 
-js-gardener@2.0.147:
-  version "2.0.147"
-  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.147.tgz#20a1ad0f5992c7c646b9b89704393db1fb19b028"
-  integrity sha512-Fru3fuw9J1eA34JgXqtL8Wt0y3rqYNWVP79yMtij+ARj1aPn45kK7JLYa0Q32faAsKNMH2kGstGzxK55TbVpeQ==
+joi-strict@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/joi-strict/-/joi-strict-1.2.2.tgz#177ebf5f303d171d0d019252d75a0095c7b4abdf"
+  integrity sha512-tzanWyh9yhmiFJ2er/vVXhBWhzmjxJtR9lyru3Mvojlsu4qosWDzFTk4pQpBwx+AneelHqQZ7BTi/gLa2nEs1g==
   dependencies:
-    chalk "3.0.0"
+    "@hapi/joi" "17.1.1"
+
+js-gardener@2.0.153:
+  version "2.0.153"
+  resolved "https://registry.yarnpkg.com/js-gardener/-/js-gardener-2.0.153.tgz#715619d38ce4643938a81d5ca2fe4e9df50d8997"
+  integrity sha512-Mow0w5gJ3xnoXMEE1dEt7VoJxDz3DDy2BuT4D7PhgKoUsDujlm7Mo7LgMCQhCqXexgqCEHWdke34FW3RrCJi0g==
+  dependencies:
+    chalk "4.0.0"
     fancy-log "1.3.3"
     glob "7.1.6"
-    joi-strict "1.2.1"
+    joi-strict "1.2.2"
     js-yaml "3.13.1"
     lodash.difference "4.5.0"
     lodash.get "4.4.2"
     mocha "7.1.1"
     npm-check "5.9.2"
-    robo-config "3.5.1"
+    robo-config "3.5.5"
 
 js-tokens@^3.0.0:
   version "3.0.2"
@@ -6031,6 +6046,11 @@ object-scan@11.0.3:
   resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-11.0.3.tgz#0791cd82bdfc53604d9fa261ac78b4645420eb64"
   integrity sha512-uH4fBhTgE6WGiDCIJMsB8Kc/vXhQOKqFGKI2qPytu+0amlFxldb7LohP0fqRLqhOW33ziVY1qBqhvYNeFp/nHw==
 
+object-scan@13.0.1:
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/object-scan/-/object-scan-13.0.1.tgz#04f7a606a544f8a86720884bded4ba9aeb721f6f"
+  integrity sha512-OtReQ7z+Ln4OKl0ZIQjpn8YSMX6MEQY7GpsuwTzmyxj3Kyztxd1Fi8ftX26nz1MoSvWq/dtdsDzHtmMdKmuwog==
+
 object-treeify@1.1.24:
   version "1.1.24"
   resolved "https://registry.yarnpkg.com/object-treeify/-/object-treeify-1.1.24.tgz#ff3be5a93635d0f79af5e8a06d08c9bd3600e1a6"
@@ -7267,19 +7287,19 @@ rimraf@^3.0.0:
   dependencies:
     glob "^7.1.3"
 
-robo-config@3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/robo-config/-/robo-config-3.5.1.tgz#5509a8f43c413f830805209becac3bcfe13d5394"
-  integrity sha512-40bYzvLB25pLrhOeMo4KoM6mQMAVGjwsNCvPun4b8/UFTWYBWqY/6+ME2sATXn3vqGA1c6fm1Qz+j0FxNxGVxQ==
+robo-config@3.5.5:
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/robo-config/-/robo-config-3.5.5.tgz#aba92ce40e47616d7a5d113b9bf4b68a0fcab587"
+  integrity sha512-HaQv2MO9lGu5XxDS8cWC+WBooxdlVozDK2Oy2MLw6pazuje9QyYYhoLnJu81uW/9BFzZ8/4DI7DuYnrEDE8e1A==
   dependencies:
     app-root-path "3.0.0"
     deepmerge "4.2.2"
-    joi-strict "1.2.1"
+    joi-strict "1.2.2"
     lodash.clonedeep "4.5.0"
     lodash.difference "4.5.0"
     lodash.get "4.4.2"
     object-deep-contain "1.0.23"
-    object-scan "11.0.3"
+    object-scan "13.0.1"
     object-treeify "1.1.24"
     smart-fs "1.11.11"
 
