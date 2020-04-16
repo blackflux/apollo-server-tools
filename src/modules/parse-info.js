@@ -27,7 +27,7 @@ const extractNested = (selection, path, ctx) => {
             path.concat(selection.name.value, arg.name.value),
             arg.value.kind === 'Variable' ? ctx.vars[arg.value.name.value] : valueFromASTUntyped(arg.value)
           ])
-          .filter(([_, value]) => ![null, ''].includes(value))
+          .filter(([_, value]) => value !== null)
           .forEach(([p, value]) => set(ctx.args, p, value));
       }
       if (selection.selectionSet === undefined) {
