@@ -28,7 +28,7 @@
     "graphql": "14.6.0",
     "js-gardener": "2.0.153",
     "node-tdd": "2.10.3",
-    "nyc": "15.0.0",
+    "nyc": "15.0.1",
     "request": "2.88.2",
     "request-promise": "4.2.5",
     "semantic-release": "17.0.6"
