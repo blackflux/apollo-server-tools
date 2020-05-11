@@ -112,7 +112,7 @@
   "dependencies": {
     "apollo-server-errors": "2.4.1",
     "graphql-extensions": "0.12.0",
-    "joi-strict": "1.2.1",
+    "joi-strict": "1.2.2",
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
