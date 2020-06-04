@@ -7,7 +7,7 @@ const { introspectionQuery } = require('graphql/utilities');
 const { isDeprecated } = require('./deprecation');
 
 const removeDeprecated = (docsContent) => objectScan(['**.{fields,args,types}[*]'], {
-  filterFn: (k, v) => isDeprecated(v),
+  filterFn: ({ value }) => isDeprecated(value),
   joined: false
 })(docsContent)
   .forEach((k) => get(docsContent, k.slice(0, -1)).splice(k.slice(-1)[0], 1));
