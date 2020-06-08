@@ -22,7 +22,7 @@ Install with [npm](https://www.npmjs.com/):
 <!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
 ```js
 const path = require('path');
-const { syncDocs, CommentDeprecationExtension } = require('apollo-server-tools');
+const { syncDocs, CommentDeprecationPlugin } = require('apollo-server-tools');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 
@@ -49,7 +49,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  extensions: [() => new CommentDeprecationExtension()],
+  plugins: [CommentDeprecationPlugin()],
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
@@ -96,9 +96,9 @@ Can e.g. be used to return a `Sunset` header.
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 
-### class CommentDeprecationExtension({ sunsetDurationInDays: Integer, forceSunset: Boolean, versions: Object })
+### CommentDeprecationPlugin({ sunsetDurationInDays: Integer, forceSunset: Boolean, versions: Object })
 
-Graphql Extension that injects appropriate headers into responses.
+Graphql Plugin that injects appropriate headers into responses.
 
 If forceSunset is set to true and sunset functionality is accessed, an error is thrown.
 
