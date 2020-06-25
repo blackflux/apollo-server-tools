@@ -5,10 +5,10 @@ const { describe } = require('node-tdd');
 const get = require('lodash.get');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
-const CommentDeprecationExtension = require('../../src/modules/comment-deprecation-extension');
+const CommentDeprecationPlugin = require('../../src/modules/comment-deprecation-plugin');
 const versions = require('./versions');
 
-describe('Testing comment-deprecation-extension.js', {
+describe('Testing comment-deprecation-plugin.js', {
   envVars: {
     FORCE_SUNSET: '0',
     VERSION: '0.0.1'
@@ -28,7 +28,7 @@ describe('Testing comment-deprecation-extension.js', {
           }
         }
       },
-      extensions: [() => new CommentDeprecationExtension({
+      plugins: [CommentDeprecationPlugin({
         apiVersionHeader: 'x-api-version',
         sunsetDurationInDays: 2 * 365,
         forceSunset: process.env.FORCE_SUNSET === '1',
