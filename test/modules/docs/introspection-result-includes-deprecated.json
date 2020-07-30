@@ -423,7 +423,17 @@
               "args": [
                 {
                   "name": "cursor",
-                  "description": "",
+                  "description": "[required] 1.0.0",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "other",
+                  "description": "[required] 3.0.0",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
