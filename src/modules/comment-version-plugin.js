@@ -3,6 +3,7 @@ const { ApolloError } = require('apollo-server-errors');
 const Joi = require('joi-strict');
 const pv = require('painless-version');
 const { getDeprecationMeta } = require('./deprecation');
+const { getRequireMeta } = require('./require');
 const { VERSION_REGEX } = require('../resources/regex');
 
 module.exports = (opts) => {
@@ -57,22 +58,28 @@ module.exports = (opts) => {
             );
           }
           deprecatedMeta.init(schema, document);
-          const {
-            isDeprecated,
-            sunsetDate,
-            isSunset,
-            minVersionAccessed
-          } = deprecatedMeta.get();
-          if (isDeprecated === true && pv.test(`${minVersionAccessed} <= ${version}`)) {
+          const dMeta = deprecatedMeta.get();
+          if (dMeta.isDeprecated === true && pv.test(`${dMeta.minVersionAccessed} <= ${version}`)) {
             throw new ApolloError(
               `Functionality unsupported for version "${version}".`,
               'DEPRECATION_ERROR'
             );
           }
-          if (forceSunset === true && isSunset === true) {
+          if (forceSunset === true && dMeta.isSunset === true) {
             throw new ApolloError(
-              `Functionality sunset since "${sunsetDate.toUTCString()}".`,
+              `Functionality sunset since "${dMeta.sunsetDate.toUTCString()}".`,
               'DEPRECATION_ERROR'
+            );
+          }
+          const rMeta = getRequireMeta({
+            version,
+            schema,
+            ast: document
+          });
+          if (rMeta.isRequiredMissing === true && pv.test(`${rMeta.minVersionAccessed} <= ${version}`)) {
+            throw new ApolloError(
+              `Some Argument(s) required since version "${rMeta.minVersionAccessed}".`,
+              'REQUIRED_ERROR'
             );
           }
         },

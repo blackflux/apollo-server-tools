@@ -16,7 +16,10 @@ type User {
   name: String
   avatar_url: Url
   tweets(
+    # [required] 1.0.0
     cursor: String,
+    # [required] 3.0.0
+    other: String,
     # [deprecated] 4.0.0 Please use cursor instead
     limit: Int
   ): [Tweet!]!

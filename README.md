@@ -22,20 +22,22 @@ Install with [npm](https://www.npmjs.com/):
 <!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
 ```js
 const path = require('path');
-const { syncDocs, CommentDeprecationPlugin } = require('apollo-server-tools');
+const { syncDocs, CommentVersionPlugin } = require('apollo-server-tools');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 
 const typeDefs = `
     type Query {
-        # [deprecated] 2019-01-01 Deprecated, add reason and what to do...
+        # [deprecated] 1.0.0 Deprecated, add reason and what to do...
         messages: [Message!]!
     }
-    # [deprecated] 2019-02-02 Also Deprecated, notice the date
+    # [deprecated] 2.0.0 Also Deprecated, notice the date
     type Message {
         id: String
-        # [deprecated] 2019-03-03 Yep, Deprecated, we can deprecate everything now
+        # [deprecated] 3.0.0 Yep, Deprecated, we can deprecate everything now
         content: String
+        # [required] 3.0.0
+        payload: String
     }
 `;
 const resolvers = {
@@ -49,7 +51,17 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [CommentDeprecationPlugin()],
+  plugins: [CommentVersionPlugin({
+    apiVersionHeader: 'x-api-version',
+    forceSunset: false,
+    sunsetDurationInDays: 7 * 52,
+    versions: {
+      '0.0.1': '2018-01-01',
+      '1.0.0': '2019-01-01',
+      '2.0.0': '2019-02-02',
+      '3.0.0': '2019-03-03'
+    }
+  })],
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
@@ -61,6 +73,9 @@ server.listen().then(async (serverInfo) => {
     uri: `${serverInfo.url}graphql`,
     json: true,
     body: { query: 'query Messages { messages { id, content } }' },
+    headers: {
+      'x-api-version': '0.0.1'
+    },
     resolveWithFullResponse: true
   });
   // As per example https://tools.ietf.org/html/draft-dalal-deprecation-header-00#section-5
@@ -96,13 +111,15 @@ Can e.g. be used to return a `Sunset` header.
 
 Fetch deprecated entities that are accessed by the query. Expects custom deprecation syntax, see below.
 
-### CommentDeprecationPlugin({ sunsetDurationInDays: Integer, forceSunset: Boolean, versions: Object })
+### CommentVersionPlugin({ sunsetDurationInDays: Integer, forceSunset: Boolean, versions: Object })
 
 Graphql Plugin that injects appropriate headers into responses.
 
 If forceSunset is set to true and sunset functionality is accessed, an error is thrown.
 
 Versions is expected to be an object mapping versions to their creation date string as "YYYY-MM-DD".
+
+Can make optional arguments required from a certain version by using e.g `[required] 1.0.0` as a comment.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
