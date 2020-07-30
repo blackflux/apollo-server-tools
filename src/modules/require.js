@@ -1,11 +1,6 @@
 const get = require('lodash.get');
-const {
-  TypeInfo,
-  visit,
-  visitWithTypeInfo
-} = require('graphql');
 const pv = require('painless-version');
-const parseInfo = require('./parse-info');
+const astTraverse = require('../util/ast-traverse');
 const { REQUIRED_REGEX } = require('../resources/regex');
 
 const isRequired = (fd) => fd && REQUIRED_REGEX.test(fd.description);
@@ -14,15 +9,19 @@ module.exports.isRequired = isRequired;
 const getRequireDetails = ({
   schema, ast, fragments = {}, vars = {}
 }) => {
-  const { args } = parseInfo({ ast, fragments, vars });
-  const typeInfo = new TypeInfo(schema);
-
   const required = new Set();
   const provided = new Set();
 
-  visit(ast, visitWithTypeInfo(typeInfo, {
-    enter(node, key, parent, path, ancestors) {
-      const fieldDef = typeInfo.getFieldDef();
+  astTraverse({
+    schema,
+    ast,
+    fragments,
+    vars,
+    onEnter: ({
+      ancestors,
+      args,
+      fieldDef
+    }) => {
       if (fieldDef && Array.isArray(fieldDef.args)) {
         const argsReq = fieldDef.args
           .filter((arg) => isRequired(arg));
@@ -38,7 +37,7 @@ const getRequireDetails = ({
           .forEach((arg) => provided.add(arg));
       }
     }
-  }));
+  });
 
   return [...required].filter((e) => !provided.has(e));
 };
