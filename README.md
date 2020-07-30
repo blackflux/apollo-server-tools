@@ -28,15 +28,16 @@ const request = require('request-promise');
 
 const typeDefs = `
     type Query {
-        # [deprecated] 2019-01-01 Deprecated, add reason and what to do...
+        # [deprecated] 1.0.0 Deprecated, add reason and what to do...
         messages: [Message!]!
     }
-    # [deprecated] 2019-02-02 Also Deprecated, notice the date
+    # [deprecated] 2.0.0 Also Deprecated, notice the date
     type Message {
-        # [required] 2019-03-03
         id: String
-        # [deprecated] 2019-03-03 Yep, Deprecated, we can deprecate everything now
+        # [deprecated] 3.0.0 Yep, Deprecated, we can deprecate everything now
         content: String
+        # [required] 3.0.0
+        payload: String
     }
 `;
 const resolvers = {
@@ -50,7 +51,17 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [CommentVersionPlugin()],
+  plugins: [CommentVersionPlugin({
+    apiVersionHeader: 'x-api-version',
+    forceSunset: false,
+    sunsetDurationInDays: 7 * 52,
+    versions: {
+      '0.0.1': '2018-01-01',
+      '1.0.0': '2019-01-01',
+      '2.0.0': '2019-02-02',
+      '3.0.0': '2019-03-03'
+    }
+  })],
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
@@ -62,6 +73,9 @@ server.listen().then(async (serverInfo) => {
     uri: `${serverInfo.url}graphql`,
     json: true,
     body: { query: 'query Messages { messages { id, content } }' },
+    headers: {
+      'x-api-version': '0.0.1'
+    },
     resolveWithFullResponse: true
   });
   // As per example https://tools.ietf.org/html/draft-dalal-deprecation-header-00#section-5
