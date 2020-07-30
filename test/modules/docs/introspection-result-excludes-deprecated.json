@@ -374,7 +374,7 @@
               "args": [
                 {
                   "name": "cursor",
-                  "description": "",
+                  "description": "[required] 1.0.0",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
