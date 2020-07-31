@@ -24,14 +24,15 @@ module.exports = (opts) => {
   const DeprecatedMeta = (version) => {
     let content = null;
     return {
-      init: (schema, document) => {
+      init: (schema, document, vars) => {
         assert(content === null);
         content = getDeprecationMeta({
           version,
           versions,
           sunsetDurationInDays,
           schema,
-          ast: document
+          ast: document,
+          vars
         });
       },
       get: () => (content === null ? {} : content)
@@ -57,7 +58,7 @@ module.exports = (opts) => {
               'VERSION_HEADER_INVALID'
             );
           }
-          deprecatedMeta.init(schema, document);
+          deprecatedMeta.init(schema, document, request.variables);
           const dMeta = deprecatedMeta.get();
           if (dMeta.isDeprecated === true && pv.test(`${dMeta.minVersionAccessed} <= ${version}`)) {
             throw new ApolloError(
@@ -74,7 +75,8 @@ module.exports = (opts) => {
           const rMeta = getRequireMeta({
             version,
             schema,
-            ast: document
+            ast: document,
+            vars: request.variables
           });
           if (rMeta.isRequiredMissing === true && pv.test(`${rMeta.minVersionAccessed} <= ${version}`)) {
             throw new ApolloError(
