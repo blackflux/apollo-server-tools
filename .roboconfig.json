@@ -9,7 +9,11 @@
       "projectName": "apollo-server-tools",
       "owner": "simlu",
       "ownerName": "Lukas Siemon",
-      "mergeBot": "MrsFlux"
-    }
+      "mergeBot": "MrsFlux",
+      "nodeVersion": "10"
+    },
+    "exclude": [
+      "123123/asdasd"
+    ]
   }
 }

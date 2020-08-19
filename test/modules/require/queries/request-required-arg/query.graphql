@@ -1,0 +1,7 @@
+{
+  User(id: "123") {
+    tweets(other: "123") {
+      id
+    }
+  }
+}

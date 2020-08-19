@@ -8,7 +8,7 @@ describe('Testing index.js', () => {
       'parseInfo',
       'getDeprecationMeta',
       'getDeprecationDetails',
-      'CommentDeprecationPlugin',
+      'CommentVersionPlugin',
       'generateDocs',
       'syncDocs'
     ]);
