@@ -11,9 +11,6 @@
       "ownerName": "Lukas Siemon",
       "mergeBot": "MrsFlux",
       "nodeVersion": "10"
-    },
-    "exclude": [
-      "123123/asdasd"
-    ]
+    }
   }
 }
