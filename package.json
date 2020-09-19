@@ -16,7 +16,7 @@
     "@blackflux/robo-config-plugin": "3.10.3",
     "apollo-server": "2.17.0",
     "babel-eslint": "10.1.0",
-    "babel-preset-latest-node": "4.1.0",
+    "babel-preset-latest-node": "5.0.0",
     "chai": "4.2.0",
     "coveralls": "3.1.0",
     "eslint": "7.9.0",
