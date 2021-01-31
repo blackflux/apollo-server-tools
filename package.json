@@ -116,7 +116,7 @@
     "json-stable-stringify": "1.0.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "object-scan": "13.8.0",
+    "object-scan": "13.9.0",
     "painless-version": "1.2.7",
     "smart-fs": "1.12.5"
   }
