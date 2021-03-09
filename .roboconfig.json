@@ -8,10 +8,10 @@
       "packageName": "apollo-server-tools",
       "projectName": "apollo-server-tools",
       "owner": "simlu",
-      "nodeVersion": "12",
+      "nodeVersion": "10",
       "ownerName": "Lukas Siemon",
       "mergeBot": "MrsFlux",
-      "nodeVersion": "12"
+      "nodeVersion": "10"
     }
   }
 }
