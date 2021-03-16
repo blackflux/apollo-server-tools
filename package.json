@@ -117,7 +117,7 @@
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
     "object-scan": "14.0.0",
-    "painless-version": "1.2.9",
+    "painless-version": "2.0.0",
     "smart-fs": "2.0.0"
   }
 }
