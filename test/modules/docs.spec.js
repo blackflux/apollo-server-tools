@@ -2,15 +2,13 @@ const path = require('path');
 const fs = require('smart-fs');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
-const { ApolloServer } = require('apollo-server');
 const { generateDocs, syncDocs } = require('../../src/modules/docs');
+const { loadSchema } = require('./helper');
 
 describe('Testing docs.js', () => {
   let schema;
   before(() => {
-    schema = new ApolloServer({
-      typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n')
-    }).schema;
+    schema = loadSchema();
   });
 
   describe('Testing generateDocs', () => {

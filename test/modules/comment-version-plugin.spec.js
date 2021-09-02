@@ -6,7 +6,7 @@ const get = require('lodash.get');
 const { ApolloServer } = require('apollo-server');
 const request = require('request-promise');
 const CommentVersionPlugin = require('../../src/modules/comment-version-plugin');
-const versions = require('./versions');
+const versions = require('./versions.json');
 
 describe('Testing comment-version-plugin.js', {
   envVars: {

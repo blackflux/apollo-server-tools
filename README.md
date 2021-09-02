@@ -88,7 +88,6 @@ server.listen().then(async (serverInfo) => {
 // --- how you could sync graph api documentation to file
 
 syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
-
 ```
 
 ## Functions
