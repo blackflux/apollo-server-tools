@@ -4,17 +4,15 @@ const fs = require('smart-fs');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
 const { parse, validate } = require('graphql');
-const { ApolloServer } = require('apollo-server');
 const { getDirectories } = require('../util');
 const { getRequireDetails, getRequireMeta } = require('../../src/modules/require');
-const versions = require('./versions');
+const versions = require('./versions.json');
+const { loadSchema } = require('./helper');
 
 describe('Testing require.js', () => {
   let schema;
   before(() => {
-    schema = new ApolloServer({
-      typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n')
-    }).schema;
+    schema = loadSchema();
   });
 
   describe('Testing queries', () => {
