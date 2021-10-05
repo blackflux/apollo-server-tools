@@ -37,7 +37,10 @@ describe('Testing comment-version-plugin.js', {
         sunsetDurationInDays: 2 * 365,
         forceSunset: process.env.FORCE_SUNSET === '1',
         versions
-      })]
+      })],
+      parseOptions: {
+        commentDescriptions: true
+      }
     }).listen();
     requestHelper = async (query, resolverExecutedExpect) => {
       resolverExecuted = false;

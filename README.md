@@ -28,15 +28,15 @@ const request = require('request-promise');
 
 const typeDefs = `
     type Query {
-        """[deprecated] 1.0.0 Deprecated, add reason and what to do..."""
+        # [deprecated] 1.0.0 Deprecated, add reason and what to do...
         messages: [Message!]!
     }
-    """[deprecated] 2.0.0 Also Deprecated, notice the date"""
+    # [deprecated] 2.0.0 Also Deprecated, notice the date
     type Message {
         id: String
-        """[deprecated] 3.0.0 Yep, Deprecated, we can deprecate everything now"""
+        # [deprecated] 3.0.0 Yep, Deprecated, we can deprecate everything now
         content: String
-        """[required] 3.0.0"""
+        # [required] 3.0.0
         payload: String
     }
 `;
@@ -62,6 +62,10 @@ const server = new ApolloServer({
       '3.0.0': '2019-03-03'
     }
   })],
+  parseOptions: {
+    // allows line comments as per https://github.com/ardatan/graphql-tools/issues/3645#issuecomment-934653324
+    commentDescriptions: true
+  },
   introspection: false // clients should obtain this from the generated file (see below)
 });
 
