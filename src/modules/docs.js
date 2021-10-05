@@ -2,8 +2,7 @@ const fs = require('smart-fs');
 const get = require('lodash.get');
 const objectScan = require('object-scan');
 const stringify = require('json-stable-stringify');
-const { graphqlSync } = require('graphql');
-const { getIntrospectionQuery } = require('graphql/utilities');
+const { graphqlSync, getIntrospectionQuery } = require('graphql');
 const { isDeprecated } = require('./deprecation');
 
 const removeDeprecated = (docsContent) => objectScan(['**.{fields,args,types}[*]'], {
