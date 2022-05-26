@@ -25,16 +25,16 @@ describe('Testing comment-version-plugin.js', {}, () => {
 
   it('Testing empty string throws error', async () => {
     const r = await requestHelper('query User { User(id: "") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Empty String Provided.');
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 
   it('Testing nested empty string throws error', async () => {
     const r = await requestHelper('query User { User(id: "1") { tweets(cursor: "") { id } } }', false);
-    expect(r.body.errors[0].message).to.equal('Empty String Provided.');
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 
   it('Testing empty string in mutation throws error', async () => {
     const r = await requestHelper('mutation Mutation { deleteTweet(id: "") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Empty String Provided.');
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 });

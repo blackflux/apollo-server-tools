@@ -24,7 +24,7 @@ module.exports = (opts) => {
           const error = scanner(document);
           if (error) {
             throw new ApolloError(
-              'Empty String Provided.',
+              'Invalid Argument Provided.',
               'GRAPHQL_PARSE_FAILED'
             );
           }
