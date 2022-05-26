@@ -9,6 +9,7 @@ describe('Testing index.js', () => {
       'getDeprecationMeta',
       'getDeprecationDetails',
       'CommentVersionPlugin',
+      'ArgValidationPlugin',
       'generateDocs',
       'syncDocs'
     ]);
