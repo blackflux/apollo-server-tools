@@ -11,7 +11,7 @@ module.exports = (opts) => {
     'definitions.**(^selectionSet$|^selections$).arguments.value.value'
   ], {
     useArraySelector: false,
-    filterFn: ({ value }) => reject.includes(value.trim()),
+    filterFn: ({ value }) => typeof value === 'string' && reject.includes(value.trim()),
     breakFn: ({ isCircular }) => isCircular === true,
     rtn: 'parent',
     abort: true
