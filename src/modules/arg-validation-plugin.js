@@ -28,8 +28,7 @@ module.exports = (opts) => {
               'GRAPHQL_PARSE_FAILED'
             );
           }
-        },
-        willSendResponse({ response }) {}
+        }
       };
     }
   };
