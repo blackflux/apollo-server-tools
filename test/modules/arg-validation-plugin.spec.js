@@ -28,6 +28,11 @@ describe('Testing arg-validation-plugin.js', {}, () => {
     expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 
+  it('Testing space string throws error', async () => {
+    const r = await requestHelper('query User { User(id: " ") { id } }', false);
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+  });
+
   it('Testing "undefined" string throws error', async () => {
     const r = await requestHelper('query User { User(id: "undefined") { id } }', false);
     expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
