@@ -124,6 +124,12 @@ Versions is expected to be an object mapping versions to their creation date str
 
 Can make optional arguments required from a certain version by using e.g `[required] 1.0.0` as a comment.
 
+### ArgValidationPlugin({ reject: [String] })
+
+Used to do extra validation on all arguments. Could e.g. be used to reject empty strings or strings that are most likely bad input.
+
+Example `{ reject: ['', 'undefined'] }`
+
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
 Write introspection result into file. Order is stable. Returns true iff the content has changed. Deprecated entities are removed if option is set. Expects custom deprecation syntax, see below.
