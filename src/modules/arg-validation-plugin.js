@@ -25,7 +25,7 @@ module.exports = (opts) => {
           if (error) {
             throw new ApolloError(
               'Invalid Argument Provided.',
-              'GRAPHQL_PARSE_FAILED'
+              'BAD_USER_INPUT'
             );
           }
         }
