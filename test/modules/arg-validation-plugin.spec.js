@@ -3,7 +3,7 @@ const { describe } = require('node-tdd');
 const ArgValidationPlugin = require('../../src/modules/arg-validation-plugin');
 const { createServer } = require('./helper');
 
-describe('Testing comment-version-plugin.js', {}, () => {
+describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;
   let requestHelper;
   beforeEach(async () => {
