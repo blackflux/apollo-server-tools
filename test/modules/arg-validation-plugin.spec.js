@@ -8,7 +8,7 @@ describe('Testing comment-version-plugin.js', {}, () => {
   let requestHelper;
   beforeEach(async () => {
     const server = await createServer([ArgValidationPlugin({
-      reject: ['']
+      reject: ['', 'undefined']
     })]);
     serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;

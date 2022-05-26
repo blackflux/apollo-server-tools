@@ -4,7 +4,7 @@ const { ApolloError } = require('apollo-server-errors');
 
 module.exports = (opts) => {
   Joi.assert(opts, Joi.object().keys({
-    reject: Joi.array().items(Joi.string().valid(''))
+    reject: Joi.array().items(Joi.string().allow(''))
   }));
   const { reject } = opts;
   const scanner = objectScan([
