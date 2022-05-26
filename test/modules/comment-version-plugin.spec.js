@@ -1,12 +1,9 @@
-const path = require('path');
-const fs = require('smart-fs');
 const expect = require('chai').expect;
 const { describe } = require('node-tdd');
 const get = require('lodash.get');
-const { ApolloServer } = require('apollo-server');
-const request = require('request-promise');
 const CommentVersionPlugin = require('../../src/modules/comment-version-plugin');
 const versions = require('./versions.json');
+const { createServer } = require('./helper');
 
 describe('Testing comment-version-plugin.js', {
   envVars: {
@@ -17,48 +14,14 @@ describe('Testing comment-version-plugin.js', {
   let serverInfo;
   let requestHelper;
   beforeEach(async () => {
-    let resolverExecuted = false;
-    serverInfo = await new ApolloServer({
-      typeDefs: fs.smartRead(path.join(__dirname, 'schema.graphql')).join('\n'),
-      resolvers: {
-        Query: {
-          User: () => {
-            resolverExecuted = true;
-            return ({
-              id: '1',
-              name: 'Name',
-              tweets: [{ id: '123' }]
-            });
-          }
-        }
-      },
-      plugins: [CommentVersionPlugin({
-        apiVersionHeader: 'x-api-version',
-        sunsetDurationInDays: 2 * 365,
-        forceSunset: process.env.FORCE_SUNSET === '1',
-        versions
-      })],
-      parseOptions: {
-        commentDescriptions: true
-      }
-    }).listen();
-    requestHelper = async (query, resolverExecutedExpect) => {
-      resolverExecuted = false;
-      const r = await request({
-        method: 'post',
-        uri: `${serverInfo.url}graphql`,
-        json: true,
-        body: { query },
-        headers: {
-          'x-api-version': process.env.VERSION
-        },
-        resolveWithFullResponse: true,
-        simple: false
-      });
-      expect(resolverExecuted, 'Endpoint Access / Not Accessed')
-        .to.equal(resolverExecutedExpect);
-      return r;
-    };
+    const server = await createServer([CommentVersionPlugin({
+      apiVersionHeader: 'x-api-version',
+      sunsetDurationInDays: 2 * 365,
+      forceSunset: process.env.FORCE_SUNSET === '1',
+      versions
+    })]);
+    serverInfo = server.serverInfo;
+    requestHelper = server.requestHelper;
   });
 
   afterEach(async () => {
