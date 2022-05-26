@@ -28,6 +28,11 @@ describe('Testing comment-version-plugin.js', {}, () => {
     expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 
+  it('Testing "undefined" string throws error', async () => {
+    const r = await requestHelper('query User { User(id: "undefined") { id } }', false);
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+  });
+
   it('Testing nested empty string throws error', async () => {
     const r = await requestHelper('query User { User(id: "1") { tweets(cursor: "") { id } } }', false);
     expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
