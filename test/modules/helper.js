@@ -6,7 +6,8 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { expect } from 'chai';
 
 export const loadSchema = () => makeExecutableSchema({
-  typeDefs: fs.smartRead(path.join(fs.dirname(import.meta.url), 'schema.graphql')).join('\n')
+  typeDefs: fs.smartRead(path.join(fs.dirname(import.meta.url), 'schema.graphql')).join('\n'),
+  parseOptions: {}
 });
 
 export const createServer = async (plugins) => {
