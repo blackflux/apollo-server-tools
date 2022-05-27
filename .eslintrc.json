@@ -8,6 +8,7 @@
   "rules": {
     "mocha/no-mocha-arrows": 0,
     "mocha/no-hooks-for-single-case": 0,
+    "@blackflux/rules/c8-prevent-ignore": 1,
     "@blackflux/rules/kebab-case-enforce": 1,
     "@blackflux/rules/prevent-typeof-object": 1,
     "import/no-useless-path-segments": [2, {"commonjs": true}],
@@ -37,7 +38,6 @@
         }
       }
     ],
-    "@blackflux/rules/c8-prevent-ignore": 1,
     "import/extensions": [2, "always"],
     "import/prefer-default-export": 0
   },
