@@ -1,13 +1,13 @@
-const parseInfo = require('./modules/parse-info');
-const deprecation = require('./modules/deprecation');
-const CommentVersionPlugin = require('./modules/comment-version-plugin');
-const ArgValidationPlugin = require('./modules/arg-validation-plugin');
-const docs = require('./modules/docs');
+import parseInfo_ from './modules/parse-info.js';
+import * as deprecation from './modules/deprecation.js';
+import CommentVersionPlugin_ from './modules/comment-version-plugin.js';
+import ArgValidationPlugin_ from './modules/arg-validation-plugin.js';
+import * as docs from './modules/docs.js';
 
-module.exports.parseInfo = parseInfo;
-module.exports.getDeprecationMeta = deprecation.getDeprecationMeta;
-module.exports.getDeprecationDetails = deprecation.getDeprecationDetails;
-module.exports.CommentVersionPlugin = CommentVersionPlugin;
-module.exports.ArgValidationPlugin = ArgValidationPlugin;
-module.exports.generateDocs = docs.generateDocs;
-module.exports.syncDocs = docs.syncDocs;
+export const parseInfo = parseInfo_;
+export const getDeprecationMeta = deprecation.getDeprecationMeta;
+export const getDeprecationDetails = deprecation.getDeprecationDetails;
+export const CommentVersionPlugin = CommentVersionPlugin_;
+export const ArgValidationPlugin = ArgValidationPlugin_;
+export const generateDocs = docs.generateDocs;
+export const syncDocs = docs.syncDocs;

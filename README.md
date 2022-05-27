@@ -21,10 +21,11 @@ Install with [npm](https://www.npmjs.com/):
 
 <!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
 ```js
-const path = require('path');
-const { syncDocs, CommentVersionPlugin } = require('apollo-server-tools');
-const { ApolloServer } = require('apollo-server');
-const request = require('request-promise');
+import fs from 'smart-fs';
+import path from 'path';
+import { syncDocs, CommentVersionPlugin } from 'apollo-server-tools';
+import { ApolloServer } from 'apollo-server';
+import request from 'request-promise';
 
 const typeDefs = `
     type Query {
@@ -91,7 +92,7 @@ server.listen().then(async (serverInfo) => {
 
 // --- how you could sync graph api documentation to file
 
-syncDocs(path.join(__dirname, 'graph-docs.json'), server.schema);
+syncDocs(path.join(fs.dirname(import.meta.url), 'graph-docs.json'), server.schema);
 ```
 
 ## Functions

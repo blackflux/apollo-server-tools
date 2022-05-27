@@ -1,12 +1,12 @@
-const assert = require('assert');
-const { ApolloError } = require('apollo-server-errors');
-const Joi = require('joi-strict');
-const pv = require('painless-version');
-const { getDeprecationMeta } = require('./deprecation');
-const { getRequireMeta } = require('./require');
-const { VERSION_REGEX } = require('../resources/regex');
+import assert from 'assert';
+import { ApolloError } from 'apollo-server-errors';
+import Joi from 'joi-strict';
+import pv from 'painless-version';
+import { getDeprecationMeta } from './deprecation.js';
+import { getRequireMeta } from './require.js';
+import { VERSION_REGEX } from '../resources/regex.js';
 
-module.exports = (opts) => {
+export default (opts) => {
   Joi.assert(opts, Joi.object().keys({
     apiVersionHeader: Joi.string(),
     forceSunset: Joi.boolean(),

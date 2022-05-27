@@ -1,11 +1,7 @@
-const {
-  TypeInfo,
-  visit,
-  visitWithTypeInfo
-} = require('graphql');
-const parseInfo = require('../modules/parse-info');
+import { TypeInfo, visit, visitWithTypeInfo } from 'graphql';
+import parseInfo from '../modules/parse-info.js';
 
-module.exports = ({
+export default ({
   schema,
   ast,
   fragments,

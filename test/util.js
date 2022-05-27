@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('smart-fs');
+import path from 'path';
+import fs from 'smart-fs';
 
-module.exports.getDirectories = (dir) => fs.readdirSync(dir)
+export const getDirectories = (dir) => fs.readdirSync(dir)
   .filter((subDir) => fs.lstatSync(path.join(dir, subDir)).isDirectory());

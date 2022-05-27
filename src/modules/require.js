@@ -1,12 +1,11 @@
-const get = require('lodash.get');
-const pv = require('painless-version');
-const astTraverse = require('../util/ast-traverse');
-const { REQUIRED_REGEX } = require('../resources/regex');
+import get from 'lodash.get';
+import pv from 'painless-version';
+import astTraverse from '../util/ast-traverse.js';
+import { REQUIRED_REGEX } from '../resources/regex.js';
 
-const isRequired = (fd) => fd && REQUIRED_REGEX.test(fd.description);
-module.exports.isRequired = isRequired;
+export const isRequired = (fd) => fd && REQUIRED_REGEX.test(fd.description);
 
-const getRequireDetails = ({
+export const getRequireDetails = ({
   schema, ast, fragments = {}, vars = {}
 }) => {
   const required = new Set();
@@ -41,9 +40,8 @@ const getRequireDetails = ({
 
   return [...required].filter((e) => !provided.has(e));
 };
-module.exports.getRequireDetails = getRequireDetails;
 
-const getRequireMeta = ({
+export const getRequireMeta = ({
   schema,
   ast,
   fragments = {},
@@ -65,4 +63,3 @@ const getRequireMeta = ({
     });
   return result;
 };
-module.exports.getRequireMeta = getRequireMeta;

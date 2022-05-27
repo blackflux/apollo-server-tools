@@ -1,13 +1,13 @@
 /* eslint-disable mocha/no-setup-in-describe */
-const path = require('path');
-const fs = require('smart-fs');
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const { parse, validate } = require('graphql');
-const { getDirectories } = require('../util');
-const { getDeprecationDetails, getDeprecationMeta } = require('../../src/modules/deprecation');
-const versions = require('./versions.json');
-const { loadSchema } = require('./helper');
+import path from 'path';
+import fs from 'smart-fs';
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { parse, validate } from 'graphql';
+import { getDirectories } from '../util.js';
+import { getDeprecationDetails, getDeprecationMeta } from '../../src/modules/deprecation.js';
+import versions from './versions.js';
+import { loadSchema } from './helper.js';
 
 describe('Testing deprecation.js', () => {
   let schema;
@@ -16,7 +16,7 @@ describe('Testing deprecation.js', () => {
   });
 
   describe('Testing queries', () => {
-    const root = path.join(__dirname, 'deprecation', 'queries');
+    const root = path.join(fs.dirname(import.meta.url), 'deprecation', 'queries');
     getDirectories(root).forEach((d) => {
       it(`Testing ${d}`, () => {
         const ast = parse(fs.smartRead(path.join(root, d, 'query.graphql')).join('\n'));
