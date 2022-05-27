@@ -11,7 +11,10 @@ const removeDeprecated = (docsContent) => objectScan(['**.{fields,args,types}[*]
   .forEach((k) => get(docsContent, k.slice(0, -1)).splice(k.slice(-1)[0], 1));
 
 export const generateDocs = (schema, stripDeprecated = true) => {
-  const result = JSON.parse(JSON.stringify(graphqlSync(schema, getIntrospectionQuery())));
+  const result = JSON.parse(JSON.stringify(graphqlSync({
+    schema,
+    source: getIntrospectionQuery()
+  })));
   if (stripDeprecated === true) {
     removeDeprecated(result);
   }
