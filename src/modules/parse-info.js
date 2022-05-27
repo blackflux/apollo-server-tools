@@ -1,5 +1,5 @@
-const set = require('lodash.set');
-const { valueFromASTUntyped } = require('graphql');
+import set from 'lodash.set';
+import { valueFromASTUntyped } from 'graphql';
 
 const extractNested = (selection, path, ctx) => {
   switch (selection.kind) {
@@ -46,7 +46,7 @@ const extractNested = (selection, path, ctx) => {
   }
 };
 
-module.exports = ({ ast, fragments = {}, vars = {} }) => {
+export default ({ ast, fragments = {}, vars = {} }) => {
   const argsGrouped = {};
   const fieldsGrouped = extractNested(ast, [], { args: argsGrouped, fragments, vars })
     .reduce((p, c) => Object.assign(p, { [c[0]]: (p[c[0]] || []).concat(c.slice(1).join('.')) }), {});

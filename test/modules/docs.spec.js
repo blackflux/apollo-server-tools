@@ -1,9 +1,9 @@
-const path = require('path');
-const fs = require('smart-fs');
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const { generateDocs, syncDocs } = require('../../src/modules/docs');
-const { loadSchema } = require('./helper');
+import path from 'path';
+import fs from 'smart-fs';
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { generateDocs, syncDocs } from '../../src/modules/docs.js';
+import { loadSchema } from './helper.js';
 
 describe('Testing docs.js', () => {
   let schema;
@@ -16,7 +16,7 @@ describe('Testing docs.js', () => {
       const docs = generateDocs(schema);
       expect(JSON.stringify(docs)).to.not.include(['[deprecated]']);
       const result = fs.smartWrite(
-        path.join(__dirname, 'docs', 'introspection-result-excludes-deprecated.json'),
+        path.join(fs.dirname(import.meta.url), 'docs', 'introspection-result-excludes-deprecated.json'),
         docs
       );
       expect(result).to.equal(false);
@@ -26,7 +26,7 @@ describe('Testing docs.js', () => {
       const docs = generateDocs(schema, false);
       expect(JSON.stringify(docs)).to.include(['[deprecated]']);
       const result = fs.smartWrite(
-        path.join(__dirname, 'docs', 'introspection-result-includes-deprecated.json'),
+        path.join(fs.dirname(import.meta.url), 'docs', 'introspection-result-includes-deprecated.json'),
         docs
       );
       expect(result).to.equal(false);

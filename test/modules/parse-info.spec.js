@@ -1,15 +1,15 @@
 /* eslint-disable mocha/no-setup-in-describe */
-const path = require('path');
-const fs = require('smart-fs');
-const { parse } = require('graphql');
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const { getDirectories } = require('../util');
-const parseInfo = require('../../src/modules/parse-info');
+import path from 'path';
+import fs from 'smart-fs';
+import { parse } from 'graphql';
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import { getDirectories } from '../util.js';
+import parseInfo from '../../src/modules/parse-info.js';
 
 describe('Testing parse-info.js', () => {
   describe('Testing graphql-parse', () => {
-    const root = path.join(__dirname, 'parse-info', 'graphql-parse');
+    const root = path.join(fs.dirname(import.meta.url), 'parse-info', 'graphql-parse');
     getDirectories(root).forEach((testDir) => {
       it(`Testing ${testDir}`, () => {
         const query = fs.smartRead(path.join(root, testDir, 'query.graphql')).join('\n');
@@ -22,7 +22,7 @@ describe('Testing parse-info.js', () => {
   });
 
   describe('Testing resolver-info', () => {
-    const root = path.join(__dirname, 'parse-info', 'resolver-info');
+    const root = path.join(fs.dirname(import.meta.url), 'parse-info', 'resolver-info');
     getDirectories(root).forEach((testDir) => {
       it(`Testing ${testDir}`, () => {
         const ast = fs.smartRead(path.join(root, testDir, 'ast.json'));

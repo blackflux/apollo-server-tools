@@ -1,8 +1,8 @@
-const Joi = require('joi-strict');
-const objectScan = require('object-scan');
-const { ApolloError } = require('apollo-server-errors');
+import Joi from 'joi-strict';
+import objectScan from 'object-scan';
+import { ApolloError } from 'apollo-server-errors';
 
-module.exports = (opts) => {
+export default (opts) => {
   Joi.assert(opts, Joi.object().keys({
     reject: Joi.array().items(Joi.string().allow(''))
   }));
