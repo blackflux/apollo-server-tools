@@ -1,16 +1,16 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const index = require('../src/index');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import * as index from '../src/index.js';
 
 describe('Testing index.js', () => {
   it('Testing Exports', () => {
     expect(Object.keys(index)).to.deep.equal([
-      'parseInfo',
-      'getDeprecationMeta',
-      'getDeprecationDetails',
-      'CommentVersionPlugin',
       'ArgValidationPlugin',
+      'CommentVersionPlugin',
       'generateDocs',
+      'getDeprecationDetails',
+      'getDeprecationMeta',
+      'parseInfo',
       'syncDocs'
     ]);
   });

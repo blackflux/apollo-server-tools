@@ -1,7 +1,7 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const ArgValidationPlugin = require('../../src/modules/arg-validation-plugin');
-const { createServer } = require('./helper');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import ArgValidationPlugin from '../../src/modules/arg-validation-plugin.js';
+import { createServer } from './helper.js';
 
 describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;

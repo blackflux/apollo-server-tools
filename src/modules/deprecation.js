@@ -1,14 +1,13 @@
-const assert = require('assert');
-const get = require('lodash.get');
-const { getNamedType } = require('graphql');
-const pv = require('painless-version');
-const { DEPRECATED_REGEX } = require('../resources/regex');
-const astTraverse = require('../util/ast-traverse');
+import assert from 'assert';
+import get from 'lodash.get';
+import { getNamedType } from 'graphql';
+import pv from 'painless-version';
+import { DEPRECATED_REGEX } from '../resources/regex.js';
+import astTraverse from '../util/ast-traverse.js';
 
-const isDeprecated = (fd) => fd && DEPRECATED_REGEX.test(fd.description);
-module.exports.isDeprecated = isDeprecated;
+export const isDeprecated = (fd) => fd && DEPRECATED_REGEX.test(fd.description);
 
-const getDeprecationDetails = ({
+export const getDeprecationDetails = ({
   schema, ast, fragments = {}, vars = {}
 }) => {
   const result = new Set();
@@ -52,9 +51,8 @@ const getDeprecationDetails = ({
 
   return [...result];
 };
-module.exports.getDeprecationDetails = getDeprecationDetails;
 
-const getDeprecationMeta = ({
+export const getDeprecationMeta = ({
   versions,
   sunsetDurationInDays,
   schema,
@@ -89,4 +87,3 @@ const getDeprecationMeta = ({
     });
   return result;
 };
-module.exports.getDeprecationMeta = getDeprecationMeta;

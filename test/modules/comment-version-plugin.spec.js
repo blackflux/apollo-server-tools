@@ -1,9 +1,9 @@
-const expect = require('chai').expect;
-const { describe } = require('node-tdd');
-const get = require('lodash.get');
-const CommentVersionPlugin = require('../../src/modules/comment-version-plugin');
-const versions = require('./versions.json');
-const { createServer } = require('./helper');
+import { expect } from 'chai';
+import { describe } from 'node-tdd';
+import get from 'lodash.get';
+import CommentVersionPlugin from '../../src/modules/comment-version-plugin.js';
+import versions from './versions.js';
+import { createServer } from './helper.js';
 
 describe('Testing comment-version-plugin.js', {
   envVars: {
