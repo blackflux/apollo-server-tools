@@ -125,11 +125,13 @@ Versions is expected to be an object mapping versions to their creation date str
 
 Can make optional arguments required from a certain version by using e.g `[required] 1.0.0` as a comment.
 
-### ArgValidationPlugin({ reject: [String] })
+### ArgValidationPlugin(cb: Function)
 
-Used to do extra validation on all arguments. Could e.g. be used to reject empty strings or strings that are most likely bad input.
+Used to do extra processing on all arguments. Could be used e.g. to
+- crop integers to a certain range
+- reject certain input by throwing from the callback
 
-Example `{ reject: ['', 'undefined'] }`
+See test and code for additional details.
 
 ## syncDocs(filepath, schema, stripDeprecated = true)
 
