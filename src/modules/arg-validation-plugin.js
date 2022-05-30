@@ -6,17 +6,24 @@ import parseInfo from './parse-info.js';
 export default (cb) => {
   Joi.assert(cb, Joi.function());
   const scanner = objectScan(['**'], {
-    filterFn: ({ isLeaf, key, value }) => {
+    filterFn: ({
+      isLeaf, key, value, context
+    }) => {
       if (isLeaf) {
-        return !cb({
+        const kwargs = {
           path: key.join('.'),
           name: key[key.length - 1],
           value
-        });
+        };
+        const message = cb(kwargs);
+        if (message !== true) {
+          Object.assign(context, { ...kwargs, message });
+          return true;
+        }
       }
       return false;
     },
-    rtn: 'parent',
+    rtn: 'bool',
     abort: true
   });
 
@@ -25,10 +32,13 @@ export default (cb) => {
       return {
         executionDidStart({ document, request }) {
           const { args } = parseInfo({ ast: document, vars: request.variables });
-          const error = scanner(args);
+          const ctx = {};
+          const error = scanner(args, ctx);
           if (error) {
+            const isString = typeof ctx.value === 'string';
+            const sep = isString ? '"' : '';
             throw new ApolloError(
-              'Invalid Argument Provided.',
+              `Invalid value provided for Argument "${ctx.name}", found ${sep}${ctx.value}${sep}; ${ctx.message}`,
               'BAD_USER_INPUT'
             );
           }
