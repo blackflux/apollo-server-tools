@@ -9,10 +9,10 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   beforeEach(async () => {
     const server = await createServer([ArgValidationPlugin(({ value }) => {
       if (typeof value === 'string' && ['', 'undefined'].includes(value.trim())) {
-        return false;
+        return 'Must not be a rejected value';
       }
       if (typeof value === 'number' && value > 100) {
-        return false;
+        return 'Must be no greater than 100';
       }
       return true;
     })]);
@@ -31,27 +31,32 @@ describe('Testing arg-validation-plugin.js', {}, () => {
 
   it('Testing empty string throws error', async () => {
     const r = await requestHelper('query User { User(id: "") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "id", found ""; Must not be a rejected value');
   });
 
   it('Testing space string throws error', async () => {
     const r = await requestHelper('query User { User(id: " ") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "id", found " "; Must not be a rejected value');
   });
 
   it('Testing "undefined" string throws error', async () => {
     const r = await requestHelper('query User { User(id: "undefined") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "id", found "undefined"; Must not be a rejected value');
   });
 
   it('Testing nested empty string throws error', async () => {
     const r = await requestHelper('query User { User(id: "1") { tweets(cursor: "") { id } } }', false);
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "cursor", found ""; Must not be a rejected value');
   });
 
   it('Testing empty string in mutation throws error', async () => {
     const r = await requestHelper('mutation Mutation { deleteTweet(id: "") { id } }', false);
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "id", found ""; Must not be a rejected value');
   });
 
   it('Testing cropping of integer', async () => {
@@ -59,6 +64,7 @@ describe('Testing arg-validation-plugin.js', {}, () => {
       'query User { User(id: "1", intId: 222) { args } }',
       false
     );
-    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+    expect(r.body.errors[0].message).to
+      .equal('Invalid value provided for Argument "intId", found 222; Must be no greater than 100');
   });
 });
