@@ -127,9 +127,8 @@ Can make optional arguments required from a certain version by using e.g `[requi
 
 ### ArgValidationPlugin(cb: Function)
 
-Used to do extra processing on all arguments. Could be used e.g. to
-- crop integers to a certain range
-- reject certain input by throwing from the callback
+Used to do extra validation on all arguments. Can be used to
+reject certain input by returning false from callback
 
 See test and code for additional details.
 
