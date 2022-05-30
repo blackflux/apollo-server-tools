@@ -7,16 +7,14 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;
   let requestHelper;
   beforeEach(async () => {
-    const server = await createServer([ArgValidationPlugin(({ value, kind }) => {
-      if (typeof value === 'string') {
-        if (kind === 'StringValue' && ['', 'undefined'].includes(value.trim())) {
-          throw new Error();
-        }
-        if (kind === 'IntValue' && Number.parseInt(value, 10) > 100) {
-          return 100;
-        }
+    const server = await createServer([ArgValidationPlugin(({ value }) => {
+      if (typeof value === 'string' && ['', 'undefined'].includes(value.trim())) {
+        return false;
       }
-      return value;
+      if (typeof value === 'number' && value > 100) {
+        return false;
+      }
+      return true;
     })]);
     serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;
@@ -59,8 +57,8 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   it('Testing cropping of integer', async () => {
     const r = await requestHelper(
       'query User { User(id: "1", intId: 222) { args } }',
-      true
+      false
     );
-    expect(r.body.data.User.args).to.equal('{"id":"1","intId":100}');
+    expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
   });
 });
