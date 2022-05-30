@@ -15,6 +15,7 @@ type User {
   "[deprecated] 1.0.0 Please use full_name instead"
   name: String
   avatar_url: Url
+  args: String
   tweets(
     "[required] 1.0.0"
     cursor: String,
@@ -57,7 +58,8 @@ type Query {
   User(
     id: ID!,
     "[deprecated] 3.2.0 Please use id instead"
-    longId: ID
+    longId: ID,
+    intId: Int
   ): User
   Notifications(limit: Int): [Notification]
   NotificationsMeta: Meta

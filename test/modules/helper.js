@@ -16,12 +16,13 @@ export const createServer = async (plugins) => {
     typeDefs: fs.smartRead(path.join(fs.dirname(import.meta.url), 'schema.graphql')).join('\n'),
     resolvers: {
       Query: {
-        User: () => {
+        User: (_, args) => {
           resolverExecuted = true;
           return ({
             id: '1',
             name: 'Name',
-            tweets: [{ id: '123' }]
+            tweets: [{ id: '123' }],
+            args: JSON.stringify(args)
           });
         }
       }
