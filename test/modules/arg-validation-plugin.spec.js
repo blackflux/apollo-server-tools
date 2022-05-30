@@ -7,8 +7,16 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;
   let requestHelper;
   beforeEach(async () => {
-    const server = await createServer([ArgValidationPlugin({
-      reject: ['', 'undefined']
+    const server = await createServer([ArgValidationPlugin(({ value, kind }) => {
+      if (typeof value === 'string') {
+        if (kind === 'StringValue' && ['', 'undefined'].includes(value.trim())) {
+          throw new Error();
+        }
+        if (kind === 'IntValue' && Number.parseInt(value, 10) > 100) {
+          return 100;
+        }
+      }
+      return value;
     })]);
     serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;
@@ -46,5 +54,13 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   it('Testing empty string in mutation throws error', async () => {
     const r = await requestHelper('mutation Mutation { deleteTweet(id: "") { id } }', false);
     expect(r.body.errors[0].message).to.equal('Invalid Argument Provided.');
+  });
+
+  it('Testing cropping of integer', async () => {
+    const r = await requestHelper(
+      'query User { User(id: "1", intId: 222) { args } }',
+      true
+    );
+    expect(r.body.data.User.args).to.equal('{"id":"1","intId":100}');
   });
 });
