@@ -91,8 +91,10 @@ server.listen().then(async (serverInfo) => {
 });
 
 // --- how you could sync graph api documentation to file
-
-syncDocs(path.join(fs.dirname(import.meta.url), 'graph-docs.json'), server.schema);
+syncDocs(
+  path.join(fs.dirname(import.meta.url), 'graph-docs.json'),
+  makeExecutableSchema({ typeDefs, parseOptions: {} })
+);
 ```
 
 ## Functions
