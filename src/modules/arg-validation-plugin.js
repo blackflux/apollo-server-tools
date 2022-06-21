@@ -35,7 +35,8 @@ export default (opts) => {
   return {
     requestDidStart() {
       return {
-        executionDidStart({ document, request }) {
+        executionDidStart(context) {
+          const { document, request } = context;
           const { args } = parseInfo({ ast: document, vars: request.variables });
           const ctx = {};
           const error = scanner(args, ctx);
@@ -45,7 +46,8 @@ export default (opts) => {
             throwError(
               'BAD_USER_INPUT',
               `Invalid value provided for Argument "${ctx.name}", found ${sep}${ctx.value}${sep}; ${ctx.message}`,
-              onError
+              onError,
+              context
             );
           }
         }

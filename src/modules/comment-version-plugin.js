@@ -47,19 +47,22 @@ export default (opts) => {
       const deprecatedMeta = DeprecatedMeta(version);
 
       return {
-        executionDidStart({ schema, document }) {
+        executionDidStart(context) {
+          const { schema, document } = context;
           if (!VERSION_REGEX.test(String(version))) {
             throwError(
               'VERSION_HEADER_INVALID',
               `Missing or invalid api version header "${apiVersionHeader}".`,
-              onError
+              onError,
+              context
             );
           }
           if (versions[version] === undefined) {
             throwError(
               'VERSION_HEADER_INVALID',
               `Unknown api version "${version}" provided for header "${apiVersionHeader}".`,
-              onError
+              onError,
+              context
             );
           }
           deprecatedMeta.init(schema, document, request.variables);
@@ -68,14 +71,16 @@ export default (opts) => {
             throwError(
               'DEPRECATION_ERROR',
               `Functionality unsupported for version "${version}".`,
-              onError
+              onError,
+              context
             );
           }
           if (forceSunset === true && dMeta.isSunset === true) {
             throwError(
               'DEPRECATION_ERROR',
               `Functionality sunset since "${dMeta.sunsetDate.toUTCString()}".`,
-              onError
+              onError,
+              context
             );
           }
           const rMeta = getRequireMeta({
@@ -88,7 +93,8 @@ export default (opts) => {
             throwError(
               'REQUIRED_ERROR',
               `Some Argument(s) required since version "${rMeta.minVersionAccessed}".`,
-              onError
+              onError,
+              context
             );
           }
         },
