@@ -7,14 +7,16 @@ describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;
   let requestHelper;
   beforeEach(async () => {
-    const server = await createServer([ArgValidationPlugin(({ value }) => {
-      if (typeof value === 'string' && ['', 'undefined'].includes(value.trim())) {
-        return 'Must not be a rejected value';
+    const server = await createServer([ArgValidationPlugin({
+      callback: ({ value }) => {
+        if (typeof value === 'string' && ['', 'undefined'].includes(value.trim())) {
+          return 'Must not be a rejected value';
+        }
+        if (typeof value === 'number' && value > 100) {
+          return 'Must be no greater than 100';
+        }
+        return true;
       }
-      if (typeof value === 'number' && value > 100) {
-        return 'Must be no greater than 100';
-      }
-      return true;
     })]);
     serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;
