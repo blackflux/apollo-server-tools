@@ -1,6 +1,6 @@
 import fs from 'smart-fs';
 import path from 'path';
-import request from 'request-promise';
+import axios from 'axios';
 import { ApolloServer } from 'apollo-server';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { expect } from 'chai';
@@ -34,16 +34,14 @@ export const createServer = async (plugins) => {
   }).listen();
   const requestHelper = async (query, resolverExecutedExpect) => {
     resolverExecuted = false;
-    const r = await request({
+    const r = await axios({
       method: 'post',
-      uri: `${serverInfo.url}graphql`,
-      json: true,
-      body: { query },
+      url: `${serverInfo.url}graphql`,
+      data: { query },
       headers: {
-        'x-api-version': process.env.VERSION
+        ...(process.env.VERSION ? { 'x-api-version': process.env.VERSION } : {})
       },
-      resolveWithFullResponse: true,
-      simple: false
+      validateStatus: () => true
     });
     expect(resolverExecuted, 'Endpoint Access / Not Accessed')
       .to.equal(resolverExecutedExpect);

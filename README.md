@@ -25,7 +25,8 @@ import fs from 'smart-fs';
 import path from 'path';
 import { syncDocs, CommentVersionPlugin } from 'apollo-server-tools';
 import { ApolloServer } from 'apollo-server';
-import request from 'request-promise';
+import axios from 'axios';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const typeDefs = `
     type Query {
@@ -73,26 +74,26 @@ const server = new ApolloServer({
 // --- deprecation header are returned when deprecated functionality is accessed
 
 server.listen().then(async (serverInfo) => {
-  const r = await request({
+  const r = await axios({
     method: 'POST',
-    uri: `${serverInfo.url}graphql`,
-    json: true,
-    body: { query: 'query Messages { messages { id, content } }' },
+    url: `${serverInfo.url}graphql`,
+    data: { query: 'query Messages { messages { id, content } }' },
     headers: {
       'x-api-version': '0.0.1'
-    },
-    resolveWithFullResponse: true
+    }
   });
   // As per example https://tools.ietf.org/html/draft-dalal-deprecation-header-00#section-5
   console.log('Deprecation Header:', r.headers.deprecation);
   console.log('Sunset Header:', r.headers.sunset);
-  console.log('Response Body:', JSON.stringify(r.body));
+  console.log('Response Body:', JSON.stringify(r.data));
   serverInfo.server.close();
 });
 
 // --- how you could sync graph api documentation to file
-
-syncDocs(path.join(fs.dirname(import.meta.url), 'graph-docs.json'), server.schema);
+syncDocs(
+  path.join(fs.dirname(import.meta.url), 'graph-docs.json'),
+  makeExecutableSchema({ typeDefs, parseOptions: {} })
+);
 ```
 
 ## Functions
