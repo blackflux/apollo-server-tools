@@ -26,7 +26,7 @@ import path from 'path';
 import { syncDocs, CommentVersionPlugin } from 'apollo-server-tools';
 import { ApolloServer } from 'apollo-server';
 import axios from 'axios';
-import { makeExecutableSchema } from "@graphql-tools/schema";
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const typeDefs = `
     type Query {
