@@ -21,8 +21,8 @@ Install with [npm](https://www.npmjs.com/):
 
 <!-- eslint-disable import/no-unresolved,import/no-extraneous-dependencies,no-console -->
 ```js
-import fs from 'smart-fs';
 import path from 'path';
+import fs from 'smart-fs';
 import { syncDocs, CommentVersionPlugin } from 'apollo-server-tools';
 import { ApolloServer } from 'apollo-server';
 import axios from 'axios';
