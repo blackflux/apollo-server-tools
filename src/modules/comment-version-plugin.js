@@ -1,6 +1,6 @@
 import assert from 'assert';
 import Joi from 'joi-strict';
-import pv from 'painless-version';
+import { test, updateDeprecationHeaders } from 'painless-version';
 import { getDeprecationMeta } from './deprecation.js';
 import { getRequireMeta } from './require.js';
 import { VERSION_REGEX } from '../resources/regex.js';
@@ -67,7 +67,7 @@ export default (opts) => {
           }
           deprecatedMeta.init(schema, document, request.variables);
           const dMeta = deprecatedMeta.get();
-          if (dMeta.isDeprecated === true && pv.test(`${dMeta.minVersionAccessed} <= ${version}`)) {
+          if (dMeta.isDeprecated === true && test(`${dMeta.minVersionAccessed} <= ${version}`)) {
             throwError(
               'DEPRECATION_ERROR',
               `Functionality unsupported for version "${version}".`,
@@ -89,7 +89,7 @@ export default (opts) => {
             ast: document,
             vars: request.variables
           });
-          if (rMeta.isRequiredMissing === true && pv.test(`${rMeta.minVersionAccessed} <= ${version}`)) {
+          if (rMeta.isRequiredMissing === true && test(`${rMeta.minVersionAccessed} <= ${version}`)) {
             throwError(
               'REQUIRED_ERROR',
               `Some Argument(s) required since version "${rMeta.minVersionAccessed}".`,
@@ -106,7 +106,7 @@ export default (opts) => {
           } = deprecatedMeta.get();
           if (isDeprecated === true) {
             const headers = Object.fromEntries(response.http.headers.entries());
-            pv.updateDeprecationHeaders(headers, { deprecationDate, sunsetDate });
+            updateDeprecationHeaders(headers, { deprecationDate, sunsetDate });
             Object.entries(headers)
               .forEach(([k, v]) => response.http.headers.set(k, v));
           }

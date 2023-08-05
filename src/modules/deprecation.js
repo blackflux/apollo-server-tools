@@ -1,7 +1,7 @@
 import assert from 'assert';
 import get from 'lodash.get';
 import { getNamedType } from 'graphql';
-import pv from 'painless-version';
+import { test } from 'painless-version';
 import { DEPRECATED_REGEX } from '../resources/regex.js';
 import astTraverse from '../util/ast-traverse.js';
 
@@ -81,7 +81,7 @@ export const getDeprecationMeta = ({
         result.sunsetDate = new Date(deprecationDate.getTime() + 1000 * 60 * 60 * 24 * sunsetDurationInDays);
         result.isSunset = result.sunsetDate < new Date();
       }
-      if (result.minVersionAccessed === null || pv.test(`${version} < ${result.minVersionAccessed}`)) {
+      if (result.minVersionAccessed === null || test(`${version} < ${result.minVersionAccessed}`)) {
         result.minVersionAccessed = version;
       }
     });
