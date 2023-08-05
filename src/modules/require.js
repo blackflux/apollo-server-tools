@@ -1,5 +1,5 @@
 import get from 'lodash.get';
-import pv from 'painless-version';
+import { test } from 'painless-version';
 import astTraverse from '../util/ast-traverse.js';
 import { REQUIRED_REGEX } from '../resources/regex.js';
 
@@ -56,7 +56,7 @@ export const getRequireMeta = ({
   })
     .forEach((d) => {
       const version = d.description.split(' ', 2)[1];
-      if (result.minVersionAccessed === null || pv.test(`${version} < ${result.minVersionAccessed}`)) {
+      if (result.minVersionAccessed === null || test(`${version} < ${result.minVersionAccessed}`)) {
         result.isRequiredMissing = true;
         result.minVersionAccessed = version;
       }
