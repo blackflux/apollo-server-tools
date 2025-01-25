@@ -11,6 +11,7 @@ import { loadSchema } from './helper.js';
 
 describe('Testing require.js', () => {
   let schema;
+
   before(() => {
     schema = loadSchema();
   });
