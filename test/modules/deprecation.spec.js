@@ -11,6 +11,7 @@ import { loadSchema } from './helper.js';
 
 describe('Testing deprecation.js', () => {
   let schema;
+
   before(() => {
     schema = loadSchema();
   });

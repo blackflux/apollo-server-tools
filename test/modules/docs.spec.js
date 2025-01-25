@@ -7,6 +7,7 @@ import { loadSchema } from './helper.js';
 
 describe('Testing docs.js', () => {
   let schema;
+
   before(() => {
     schema = loadSchema();
   });

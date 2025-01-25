@@ -13,6 +13,7 @@ describe('Testing comment-version-plugin.js', {
 }, () => {
   let serverInfo;
   let requestHelper;
+
   beforeEach(async () => {
     const server = await createServer([CommentVersionPlugin({
       apiVersionHeader: 'x-api-version',
