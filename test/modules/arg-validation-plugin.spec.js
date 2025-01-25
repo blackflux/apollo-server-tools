@@ -6,6 +6,7 @@ import { createServer } from './helper.js';
 describe('Testing arg-validation-plugin.js', {}, () => {
   let serverInfo;
   let requestHelper;
+
   beforeEach(async () => {
     const server = await createServer([ArgValidationPlugin({
       callback: ({ value }) => {

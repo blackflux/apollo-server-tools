@@ -2,10 +2,12 @@
   "data": {
     "__schema": {
       "queryType": {
-        "name": "Query"
+        "name": "Query",
+        "kind": "OBJECT"
       },
       "mutationType": {
-        "name": "Mutation"
+        "name": "Mutation",
+        "kind": "OBJECT"
       },
       "subscriptionType": null,
       "types": [
@@ -941,6 +943,18 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "isOneOf",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -1622,6 +1636,14 @@
               "defaultValue": null
             }
           ]
+        },
+        {
+          "name": "oneOf",
+          "description": "Indicates exactly one field must be supplied and this field must not be `null`.",
+          "locations": [
+            "INPUT_OBJECT"
+          ],
+          "args": []
         }
       ]
     }

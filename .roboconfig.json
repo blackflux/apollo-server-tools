@@ -8,7 +8,7 @@
       "packageName": "apollo-server-tools",
       "projectName": "apollo-server-tools",
       "owner": "simlu",
-      "nodeVersion": "16",
+      "nodeVersion": "20",
       "ownerName": "Lukas Siemon",
       "mergeBot": "MrsFlux",
       "nccEnabled": false
