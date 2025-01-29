@@ -27,8 +27,8 @@
     "eslint-plugin-markdown": "5.1.0",
     "eslint-plugin-mocha": "10.5.0",
     "graphql": "16.10.0",
-    "js-gardener": "6.0.2",
-    "node-tdd": "5.2.5"
+    "js-gardener": "6.0.3",
+    "node-tdd": "6.0.0"
   },
   "licenses": [
     {
@@ -82,8 +82,8 @@
     "json-stable-stringify": "1.2.1",
     "lodash.get": "4.4.2",
     "lodash.set": "4.3.2",
-    "object-scan": "19.0.5",
-    "painless-version": "3.0.0",
-    "smart-fs": "4.0.1"
+    "object-scan": "20.0.1",
+    "painless-version": "4.0.0",
+    "smart-fs": "5.0.1"
   }
 }
