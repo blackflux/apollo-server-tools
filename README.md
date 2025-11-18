@@ -24,7 +24,7 @@ Install with [npm](https://www.npmjs.com/):
 import path from 'path';
 import fs from 'smart-fs';
 import { syncDocs, CommentVersionPlugin } from 'apollo-server-tools';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from '@apollo/server';
 import axios from 'axios';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 

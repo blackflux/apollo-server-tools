@@ -1,7 +1,9 @@
 import path from 'path';
 import fs from 'smart-fs';
 import axios from 'axios';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from '@apollo/server';
+// eslint-disable-next-line import/extensions
+import { startStandaloneServer } from '@apollo/server/standalone';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { expect } from 'chai';
 
@@ -12,7 +14,7 @@ export const loadSchema = () => makeExecutableSchema({
 
 export const createServer = async (plugins) => {
   let resolverExecuted = false;
-  const serverInfo = await new ApolloServer({
+  const server = new ApolloServer({
     typeDefs: fs.smartRead(path.join(fs.dirname(import.meta.url), 'schema.graphql')).join('\n'),
     resolvers: {
       Query: {
@@ -31,7 +33,10 @@ export const createServer = async (plugins) => {
     parseOptions: {
       commentDescriptions: true
     }
-  }).listen();
+  });
+  const serverInfo = await startStandaloneServer(server, {
+    listen: { port: 4000 }
+  });
   const requestHelper = async (query, resolverExecutedExpect) => {
     resolverExecuted = false;
     const r = await axios({
@@ -47,5 +52,5 @@ export const createServer = async (plugins) => {
       .to.equal(resolverExecutedExpect);
     return r;
   };
-  return { serverInfo, requestHelper };
+  return { server, serverInfo, requestHelper };
 };
