@@ -11,22 +11,21 @@ describe('Testing comment-version-plugin.js', {
     VERSION: '0.0.1'
   }
 }, () => {
-  let serverInfo;
+  let server;
   let requestHelper;
 
   beforeEach(async () => {
-    const server = await createServer([CommentVersionPlugin({
+    server = await createServer([CommentVersionPlugin({
       apiVersionHeader: 'x-api-version',
       sunsetDurationInDays: 2 * 365,
       forceSunset: process.env.FORCE_SUNSET === '1',
       versions
     })]);
-    serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;
   });
 
   afterEach(async () => {
-    await serverInfo.server.close();
+    await server.server.stop();
   });
 
   it('Testing Sunset and Deprecation headers returned', async () => {

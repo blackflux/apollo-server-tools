@@ -4,11 +4,11 @@ import ArgValidationPlugin from '../../src/modules/arg-validation-plugin.js';
 import { createServer } from './helper.js';
 
 describe('Testing arg-validation-plugin.js', {}, () => {
-  let serverInfo;
+  let server;
   let requestHelper;
 
   beforeEach(async () => {
-    const server = await createServer([ArgValidationPlugin({
+    server = await createServer([ArgValidationPlugin({
       callback: ({ value }) => {
         if (typeof value === 'string' && ['', 'undefined'].includes(value.trim())) {
           return 'Must not be a rejected value';
@@ -19,12 +19,11 @@ describe('Testing arg-validation-plugin.js', {}, () => {
         return true;
       }
     })]);
-    serverInfo = server.serverInfo;
     requestHelper = server.requestHelper;
   });
 
   afterEach(async () => {
-    await serverInfo.server.close();
+    await server.server.stop();
   });
 
   it('Testing string with length does not throw', async () => {

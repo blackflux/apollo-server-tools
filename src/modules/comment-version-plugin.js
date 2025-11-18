@@ -47,7 +47,7 @@ export default (opts) => {
       const deprecatedMeta = DeprecatedMeta(version);
 
       return {
-        executionDidStart(context) {
+        didResolveOperation(context) {
           const { schema, document } = context;
           if (!VERSION_REGEX.test(String(version))) {
             throwError(
