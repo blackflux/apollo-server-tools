@@ -35,7 +35,7 @@ export default (opts) => {
   return {
     requestDidStart() {
       return {
-        executionDidStart(context) {
+        didResolveOperation(context) {
           const { document, request } = context;
           const { args } = parseInfo({ ast: document, vars: request.variables });
           const ctx = {};
